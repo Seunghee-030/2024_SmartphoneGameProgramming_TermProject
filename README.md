@@ -1,13 +1,7 @@
 ![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/14973ed0-ffce-4530-be91-57112f38c506)2024 1학기 스마트폰 게임 프로그래밍 프로젝트
 
-게임 제목
-Candy Catcher
+![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/db7ac2fe-e774-4bf8-8669-93c3fd1f7bbc)
 
-
-게임 개요 
-플레이어가 맵 구조를 활용하여 하늘에서 떨어지는 다양한 종류의 사탕을 먹는 2D 액션 게임.
-플레이어는 지형지물을 이용해 사탕을 이동시켜, 주인공 몬스터에게 도달시킨다. 몬스터가 다양한 사탕을 먹으면서 최고 점수를 획득하는 것이 목표이다. 게임이 진행됨에 따라 등장하는 사탕의 종류가 다양해지고, 난이도가 올라가는 것이 특징이다.
-![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/acc24f24-21e1-47e6-9855-3fcabaddb31e)
 
 
 <사용 요소 및 기능>
