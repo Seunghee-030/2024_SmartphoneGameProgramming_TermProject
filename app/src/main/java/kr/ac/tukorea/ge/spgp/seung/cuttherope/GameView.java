@@ -15,8 +15,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Background background1, background2;
 
     private Player player;
-
-    //private Item item;
+    private Item item;
 
     public GameView(Context context, int screenX, int screenY) {
         super(context);
