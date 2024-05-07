@@ -18,7 +18,7 @@ public class MainScene extends Scene {
     }
 
     public enum Layer {
-        bg, enemy, bullet, player, ui, controller, COUNT
+        bg, enemy, bullet, player, ui, controller, item, COUNT
     }
     public MainScene() {
         //Metrics.setGameSize(16, 16);
