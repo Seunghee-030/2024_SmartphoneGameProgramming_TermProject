@@ -29,17 +29,19 @@ public class Fighter extends Sprite {
     private static final float MAX_ROLL_TIME = 0.4f;
     private float rollTime;
     private static final Rect[] rects = new Rect[] {
-            new Rect(  8, 0,   8 + 42, 80),
-            new Rect( 76, 0,  76 + 42, 80),
-            new Rect(140, 0, 140 + 50, 80),
-            new Rect(205, 0, 205 + 56, 80),
-            new Rect(270, 0, 270 + 62, 80),
-            new Rect(334, 0, 334 + 70, 80),
-            new Rect(406, 0, 406 + 62, 80),
-            new Rect(477, 0, 477 + 56, 80),
-            new Rect(549, 0, 549 + 48, 80),
-            new Rect(621, 0, 621 + 42, 80),
-            new Rect(689, 0, 689 + 42, 80),
+            new Rect( 0, 0, 56, 58),                    // 0
+            new Rect( 56, 0, 56*2, 63),                 // 1
+            new Rect( 56*2, 0, 56*3, 63),               // 2
+            new Rect( 56*3, 0, 56*4, 63),               // 3
+            new Rect( 56*4, 0, 56*5, 63),               // 4
+            new Rect( 56*5, 0, 56*6, 63),               // 5
+
+            new Rect( 56*6, 0, 56*6+62, 59),                    // 6
+            new Rect( 56*6+62, 0, 56*6+62+59, 59),              // 7
+            new Rect( 56*6+62+59, 0, 56*6+62+59+57, 59),        // 8
+            new Rect( 56*6+62+59+57, 0, 56*6+62+59+57+55, 59),              // 9
+            new Rect( 56*6+62+59+57+55, 0, 56*6+62+59+57+55+55, 62),             // 10
+
     };
 
 
@@ -58,7 +60,7 @@ public class Fighter extends Sprite {
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         sparkBitmap = BitmapPool.get(R.mipmap.laser_spark);
 
-        srcRect = rects[5];
+        srcRect = rects[10];
     }
 
     @Override
@@ -82,27 +84,24 @@ public class Fighter extends Sprite {
             dx = 0;
         }
 
-        fireBullet(elapsedSeconds);
+        //fireBullet(elapsedSeconds);
         updateRoll(elapsedSeconds);
     }
 
     private void updateRoll(float elapsedSeconds) {
-        int sign = targetX < x ? -1 : x < targetX ? 1 : 0; // roll 을 변경시킬 부호를 정한다
-        if (x == targetX) {                         // 비행기가 멈췄을 때
-            if (rollTime > 0) sign = -1;         // 오른쪽으로 움직이고 있었다면 감소시킨다
-            else if (rollTime < 0) sign = 1;     // 왼쪽으로 움직이고 있었다면 증가시킨다
-        }
-        rollTime += sign * elapsedSeconds;
-        if (x == targetX) {                           // 비행기가 멈췄을 때
-            if (sign < 0 && rollTime < 0) rollTime = 0; // 감소중이었는데 0 을 지나쳤다면 0으로
-            if (sign > 0 && rollTime > 0) rollTime = 0; // 증가중이었는데 0 을 지나쳤다면 0으로
-        }
-        if (rollTime < -MAX_ROLL_TIME) rollTime = -MAX_ROLL_TIME;    // 최대 MAX_ROLL_TIME 까지만
-        else if (rollTime > MAX_ROLL_TIME) rollTime = MAX_ROLL_TIME;
+        // rollTime을 증가시킴으로써 애니메이션을 진행
+        rollTime += elapsedSeconds * 0.2f;
 
-        int rollIndex = 5 + (int)(rollTime * 5 / MAX_ROLL_TIME);
+        // rollTime이 MAX_ROLL_TIME을 넘어가면 초기화하여 반복되도록
+        if (rollTime > MAX_ROLL_TIME)
+            rollTime -= MAX_ROLL_TIME;
+
+        // 0부터 12까지의 값을 순환하도록 rollIndex를 계산
+        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 8); //8개의 프레임
+
         srcRect = rects[rollIndex];
     }
+
 
     private void fireBullet(float elapsedSeconds) {
         MainScene scene = (MainScene) Scene.top();
@@ -125,12 +124,12 @@ public class Fighter extends Sprite {
             canvas.drawBitmap(targetBmp, null, targetRect, null);
         }
         super.draw(canvas);
-        if (FIRE_INTERVAL - fireCoolTime < SPARK_DURATION) {
+      /*  if (FIRE_INTERVAL - fireCoolTime < SPARK_DURATION) {
             sparkRect.set(x - SPARK_WIDTH/2, y - SPARK_HEIGHT/2 - SPARK_OFFSET,
                     x + SPARK_WIDTH/2, y + SPARK_HEIGHT/2 - SPARK_OFFSET
             );
             canvas.drawBitmap(sparkBitmap, null, sparkRect, null);
-        }
+        }*/
     }
 
     private void setTargetX(float x) {

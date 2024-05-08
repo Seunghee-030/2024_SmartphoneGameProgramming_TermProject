@@ -16,7 +16,7 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     private int power;
 
     private Bullet(float x, float y, int power) {
-        super(R.mipmap.laser_1);
+        super(R.mipmap.enemy_black);
         setPosition(x, y, BULLET_WIDTH, BULLET_HEIGHT);
         this.power = power;
         dy = -SPEED;

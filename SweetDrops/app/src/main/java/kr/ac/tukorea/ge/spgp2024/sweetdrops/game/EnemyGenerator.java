@@ -10,7 +10,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 
 public class EnemyGenerator implements IGameObject {
     private static final String TAG = EnemyGenerator.class.getSimpleName();
-    public static final float GEN_INTERVAL = 5.0f;
+    public static final float GEN_INTERVAL = 500.0f;
     private final Random random = new Random();
     private float enemyTime = 0;
     private int wave;
@@ -29,12 +29,12 @@ public class EnemyGenerator implements IGameObject {
 
         wave++;
         //Log.v(TAG, "Generating: wave " + wave);
-        for (int i = 0; i < 5; i++) {
+
             int level = (wave + 15) / 10 - random.nextInt(3);
             if (level < 0) level = 0;
             if (level > Enemy.MAX_LEVEL) level = Enemy.MAX_LEVEL;
-            scene.add(MainScene.Layer.enemy, Enemy.get(level, i));
-        }
+            scene.add(MainScene.Layer.enemy, Enemy.get(level, 2));
+
     }
 
     @Override

@@ -26,23 +26,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createAnimator() {
-        animator = ObjectAnimator.ofFloat(binding.treeImageView, "translationX", 0.0f, -1995f);
+        /*animator = ObjectAnimator.ofFloat(binding.treeImageView, "translationX", 0.0f, -1995f);
         animator.setDuration(30000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
         animator.start();
-        animator.pause();
+        animator.pause();*/
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        animator.resume();
+        //animator.resume();
     }
 
     @Override
     protected void onPause() {
-        animator.pause();
+        //animator.pause();
         super.onPause();
     }
 

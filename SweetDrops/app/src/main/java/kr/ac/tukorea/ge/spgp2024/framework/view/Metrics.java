@@ -10,6 +10,9 @@ public class Metrics {
     public static float width = 9.0f;
     public static float height = 16.0f;
 
+    public static float screenWidth ;
+    public static float screenHeight;
+
     public static final RectF borderRect = new RectF(0, 0, Metrics.width, Metrics.height);
     public static final RectF screenRect = new RectF();
 
@@ -18,6 +21,8 @@ public class Metrics {
         Metrics.height = height;
         borderRect.right = width;
         borderRect.bottom = height;
+        screenWidth = width;
+        screenHeight = height;
     }
 
     private static final Matrix transformMatrix = new Matrix();

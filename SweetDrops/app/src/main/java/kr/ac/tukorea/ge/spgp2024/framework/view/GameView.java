@@ -28,12 +28,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private void initDebugObjects() {
         borderPaint = new Paint();
         borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(0.1f);
-        borderPaint.setColor(Color.RED);
+        borderPaint.setStrokeWidth(0.3f);
+        borderPaint.setColor(Color.GREEN);
 
         fpsPaint = new Paint();
-        fpsPaint.setColor(Color.BLUE);
-        fpsPaint.setTextSize(100f);
+        fpsPaint.setColor(Color.CYAN);
+        fpsPaint.setTextSize(70f);
     }
 
     //////////////////////////////////////////////////
@@ -107,7 +107,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (BuildConfig.DEBUG) {
             int fps = (int) (1.0f / elapsedSeconds);
             int count = scene.count();
-            canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 200f, fpsPaint);
+            canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 100f, fpsPaint);
         }
     }
 

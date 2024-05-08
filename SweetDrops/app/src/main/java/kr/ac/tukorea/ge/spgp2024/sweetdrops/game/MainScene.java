@@ -27,13 +27,14 @@ public class MainScene extends Scene {
         add(Layer.controller, new EnemyGenerator());
         add(Layer.controller, new CollisionChecker(this));
 
-        add(Layer.bg, new VertScrollBackground(R.mipmap.background, 0.2f));
+        add(Layer.bg, new VertScrollBackground(R.mipmap.background, 0.001f));
         //add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
+        //add(Layer.item, new Item(0,200f,100f));
 
         this.fighter = new Fighter();
         add(Layer.player, fighter);
 
-        this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
+        this.score = new Score(R.mipmap.numbers_320x110, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(0);
         add(Layer.ui, score);
     }

@@ -13,13 +13,11 @@ import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
-    private static final float SPEED = 3.0f;
+    private static final float GRAVITY = 9.8f; // 중력 가속도
+    private static final float SPEED = 2.0f;
     private static final float RADIUS = 0.9f;
     private static final int[] resIds = {
-            R.mipmap.enemy_01, R.mipmap.enemy_02, R.mipmap.enemy_03, R.mipmap.enemy_04, R.mipmap.enemy_05,
-            R.mipmap.enemy_06, R.mipmap.enemy_07, R.mipmap.enemy_08, R.mipmap.enemy_09, R.mipmap.enemy_10,
-            R.mipmap.enemy_11, R.mipmap.enemy_12, R.mipmap.enemy_13, R.mipmap.enemy_14, R.mipmap.enemy_15,
-            R.mipmap.enemy_16, R.mipmap.enemy_17, R.mipmap.enemy_18, R.mipmap.enemy_19, R.mipmap.enemy_20,    };
+            R.mipmap.candy };
     public static final int MAX_LEVEL = resIds.length - 1;
     public static final float ANIM_FPS = 10.0f;
     protected RectF collisionRect = new RectF();
@@ -37,7 +35,9 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         this.level = level;
         this.life = this.maxLife = (level + 1) * 10;
         setAnimationResource(resIds[level], ANIM_FPS);
-        setPosition(Metrics.width / 10 * (2 * index + 1), -RADIUS, RADIUS);
+        setPosition(Metrics.width / 2, -RADIUS, RADIUS); // 화면 가운데 맨 위에서 생성
+
+        dy = SPEED; // 초기 속도 설정
     }
 
     public static Enemy get(int level, int index) {
@@ -51,12 +51,41 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
+
+        // 중력 적용
+        dy += GRAVITY * elapsedSeconds;
+
+        // 캐릭터 이동
+        y += dy * elapsedSeconds;
+        x += dx * elapsedSeconds;
+
+        // 화면 테두리에 닿으면 반대 방향으로 튕김
+        if (y <= RADIUS) {
+            y = RADIUS; // 테두리 안으로 위치 조정
+            dy = -dy; // 방향 반전
+        }
+        else if (y >= Metrics.height - RADIUS) {
+            y = Metrics.height - RADIUS; // 테두리 안으로 위치 조정
+            dy = -dy; // 방향 반전
+        }
+
+        if (x <= RADIUS) {
+            x = RADIUS; // 테두리 안으로 위치 조정
+            dx = -dx; // 방향 반전
+        }
+        else if (x >= Metrics.width - RADIUS) {
+            x = Metrics.width - RADIUS; // 테두리 안으로 위치 조정
+            dx = -dx; // 방향 반전
+        }
+
+        collisionRect.set(dstRect);
+        collisionRect.inset(0.11f, 0.11f);
+
         if (dstRect.top > Metrics.height) {
             Scene.top().remove(MainScene.Layer.enemy, this);
         }
-        collisionRect.set(dstRect);
-        collisionRect.inset(0.11f, 0.11f);
     }
+
 
     @Override
     public void draw(Canvas canvas) {
