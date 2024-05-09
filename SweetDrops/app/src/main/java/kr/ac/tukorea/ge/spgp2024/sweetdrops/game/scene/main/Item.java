@@ -14,7 +14,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
-    private static final float GRAVITY =3.0f; // 중력 가속도
+    private static final float GRAVITY = 2.0f; // 중력 가속도
     private static final float SPEED = 2.0f;
     private static final float RADIUS = 0.6f;
     private static final int[] resIds = {
