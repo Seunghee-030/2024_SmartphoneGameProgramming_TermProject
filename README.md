@@ -6,8 +6,7 @@
 
 
 - 현재까지의 진행 상황 (항목별 진행 정도를 %로 표시할 것)
-![스크린샷 2024-04-04 010203](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/66cb92c4-79b9-4efa-ba63-1011fffd4387)
-
+![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/c92ef363-b738-4849-9104-7fec0eb3459a)
 
 
 - git commit 을 얼마나 자주 했는지 알 수 있는 자료 (github-insights-commits 포함)
