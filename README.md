@@ -5,6 +5,10 @@
 ![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/db7ac2fe-e774-4bf8-8669-93c3fd1f7bbc)
 
 
+https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/faed0a7b-ba05-40af-b1ab-de8fca89a153
+
+
+
 - 현재까지의 진행 상황 (항목별 진행 정도를 %로 표시할 것)
 ![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/c92ef363-b738-4849-9104-7fec0eb3459a)
 
