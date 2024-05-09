@@ -2,7 +2,7 @@ package kr.ac.tukorea.ge.spgp2024.sweetdrops.app;
 
 import android.os.Bundle;
 
-import kr.ac.tukorea.ge.spgp2024.sweetdrops.game.MainScene;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main.MainScene;
 import kr.ac.tukorea.ge.spgp2024.framework.activity.GameActivity;
 
 public class SweetDropsActivity extends GameActivity {

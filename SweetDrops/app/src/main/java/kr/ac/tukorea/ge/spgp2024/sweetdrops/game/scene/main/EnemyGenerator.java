@@ -1,7 +1,6 @@
-package kr.ac.tukorea.ge.spgp2024.sweetdrops.game;
+package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
 import android.graphics.Canvas;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -33,7 +32,8 @@ public class EnemyGenerator implements IGameObject {
             int level = (wave + 15) / 10 - random.nextInt(3);
             if (level < 0) level = 0;
             if (level > Enemy.MAX_LEVEL) level = Enemy.MAX_LEVEL;
-            scene.add(MainScene.Layer.enemy, Enemy.get(level, 2));
+            //scene.add(MainScene.Layer.item, Item.get(0, 0));
+            //scene.add(MainScene.Layer.enemy, Enemy.get(level, 2));
 
     }
 

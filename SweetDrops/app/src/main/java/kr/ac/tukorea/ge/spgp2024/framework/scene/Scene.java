@@ -10,8 +10,6 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.BuildConfig;
-import kr.ac.tukorea.ge.spgp2024.sweetdrops.game.Enemy;
-import kr.ac.tukorea.ge.spgp2024.sweetdrops.game.MainScene;
 import kr.ac.tukorea.ge.spgp2024.framework.activity.GameActivity;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;

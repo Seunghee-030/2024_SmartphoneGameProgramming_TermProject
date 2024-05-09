@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2024.sweetdrops.game;
+package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -17,7 +17,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final float SPEED = 2.0f;
     private static final float RADIUS = 0.9f;
     private static final int[] resIds = {
-            R.mipmap.candy };
+            R.mipmap.obj_bouncer_01 };
     public static final int MAX_LEVEL = resIds.length - 1;
     public static final float ANIM_FPS = 10.0f;
     protected RectF collisionRect = new RectF();
@@ -51,39 +51,15 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
+        // 중력 가속도 설정
+        float gravity = 0.8f; // 중력 가속도 (m/s^2)
+        float deltaTime = elapsedSeconds; // 시간 간격
 
-        // 중력 적용
-        dy += GRAVITY * elapsedSeconds;
+        // 중력에 따른 속도 변경
+        dy += gravity * deltaTime;
 
-        // 캐릭터 이동
-        y += dy * elapsedSeconds;
-        x += dx * elapsedSeconds;
-
-        // 화면 테두리에 닿으면 반대 방향으로 튕김
-        if (y <= RADIUS) {
-            y = RADIUS; // 테두리 안으로 위치 조정
-            dy = -dy; // 방향 반전
-        }
-        else if (y >= Metrics.height - RADIUS) {
-            y = Metrics.height - RADIUS; // 테두리 안으로 위치 조정
-            dy = -dy; // 방향 반전
-        }
-
-        if (x <= RADIUS) {
-            x = RADIUS; // 테두리 안으로 위치 조정
-            dx = -dx; // 방향 반전
-        }
-        else if (x >= Metrics.width - RADIUS) {
-            x = Metrics.width - RADIUS; // 테두리 안으로 위치 조정
-            dx = -dx; // 방향 반전
-        }
-
-        collisionRect.set(dstRect);
-        collisionRect.inset(0.11f, 0.11f);
-
-        if (dstRect.top > Metrics.height) {
-            Scene.top().remove(MainScene.Layer.enemy, this);
-        }
+        // 공의 위치 변경
+        y += dy * deltaTime;
     }
 
 

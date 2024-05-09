@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2024.sweetdrops.game;
+package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
 import android.view.MotionEvent;
 
@@ -29,8 +29,7 @@ public class MainScene extends Scene {
 
         add(Layer.bg, new VertScrollBackground(R.mipmap.background, 0.001f));
         //add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
-        //add(Layer.item, new Item(0,200f,100f));
-
+        add(MainScene.Layer.item, Item.get(0, 0));
         this.fighter = new Fighter();
         add(Layer.player, fighter);
 

@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2024.sweetdrops.game;
+package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
 import android.graphics.RectF;
 
