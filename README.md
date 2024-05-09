@@ -1,7 +1,7 @@
 2024 1학기 스마트폰 게임 프로그래밍 프로젝트
 
 
-- 게임에 대한 간단한 소개 
+- 게임에 대한 간단한 소개 (이름 변경 ->> Sweet Drops)
 ![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/db7ac2fe-e774-4bf8-8669-93c3fd1f7bbc)
 
 
