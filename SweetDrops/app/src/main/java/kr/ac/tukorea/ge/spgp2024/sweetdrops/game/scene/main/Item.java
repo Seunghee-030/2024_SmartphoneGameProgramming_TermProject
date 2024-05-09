@@ -1,5 +1,7 @@
 package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
+import static kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main.MainScene.Layer.item;
+
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
@@ -12,9 +14,9 @@ import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
-    private static final float GRAVITY = 0.2f; // 중력 가속도
+    private static final float GRAVITY =3.0f; // 중력 가속도
     private static final float SPEED = 2.0f;
-    private static final float RADIUS = 0.9f;
+    private static final float RADIUS = 0.6f;
     private static final int[] resIds = {
             R.mipmap.candy };
 
@@ -57,32 +59,37 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         // 공의 위치 변경
         y += dy * elapsedSeconds;
 
-        if (dx > 0) {
-            if (dstRect.right > Metrics.width) {
-                dx = -dx;
-            }
-        } else {
-            if (dstRect.left < 0) {
-                dx = -dx;
-            }
+        // X축 경계에 닿을 때 속도 반전
+        if (dx > 0 && dstRect.right > Metrics.width) {
+            // 오른쪽 벽에 닿았을 때
+            x = Metrics.width - dstRect.width(); // 화면 안으로 이동
+            dx = -dx; // X축 속도 반전
+        } else if (dx < 0 && dstRect.left < 0) {
+            // 왼쪽 벽에 닿았을 때
+            x = 0; // 화면 안으로 이동
+            dx = -dx; // X축 속도 반전
         }
-        if (dy > 0) {
-            if (dstRect.bottom > Metrics.height) {
-                dy = -dy;
-            }
-        } else {
-            if (dstRect.top < 0) {
-                dy = -dy;
-            }
+
+        // Y축 경계에 닿을 때 속도 반전
+        if (dy > 0 && dstRect.bottom > Metrics.height) {
+            // 아래쪽 벽에 닿았을 때
+            y = Metrics.height - dstRect.height(); // 화면 안으로 이동
+            dy = -dy; // Y축 속도 반전
+        } else if (dy < 0 && dstRect.top < 0) {
+            // 위쪽 벽에 닿았을 때
+            y = 0; // 화면 안으로 이동
+            dy = -dy; // Y축 속도 반전
         }
+
 
         // 아이템과 몬스터의 충돌 감지
         MainScene scene = (MainScene) Scene.top();
         if (scene != null) {
             Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요합니다.)
             if (monster != null && isCollidingWith(monster)) {
-                System.out.println("충돌 아이템, 몬스터");
-                //scene.recycleItem(this); // 아이템 재활용
+                System.out.println("충돌 - 아이템, 몬스터");
+                scene.remove(item, this);
+                scene.addScore(100000);
             }
         }
     }
@@ -96,7 +103,7 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         float width = dstRect.width() * 0.7f;
         canvas.translate(x - width / 2, dstRect.bottom);
         canvas.scale(width, width);
-        gauge.draw(canvas, (float)life / maxLife);
+        //gauge.draw(canvas, (float)life / maxLife);
         canvas.restore();
     }
 

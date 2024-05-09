@@ -34,7 +34,8 @@ public class EnemyGenerator implements IGameObject {
             if (level > Enemy.MAX_LEVEL) level = Enemy.MAX_LEVEL;
             //scene.add(MainScene.Layer.item, Item.get(0, 0));
             //scene.add(MainScene.Layer.enemy, Enemy.get(level, 2));
-
+        Bouncer bouncer = Bouncer.get(200, 200, 1);
+        scene.add(MainScene.Layer.obstacle, bouncer);
     }
 
     @Override

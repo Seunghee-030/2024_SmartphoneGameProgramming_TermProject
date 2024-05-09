@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
 import android.graphics.RectF;
 
+import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
@@ -11,15 +12,15 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 
 public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     private static final float BULLET_WIDTH = 0.68f;
-    private static final float BULLET_HEIGHT = BULLET_WIDTH * 40 / 28;
+    private static final float BULLET_HEIGHT = BULLET_WIDTH * 28 / 40;
     private static final float SPEED = 20.0f;
     private int power;
 
     private Bullet(float x, float y, int power) {
-        super(R.mipmap.enemy_black);
+        super(R.mipmap.enemy_black_right);
         setPosition(x, y, BULLET_WIDTH, BULLET_HEIGHT);
         this.power = power;
-        dy = -SPEED;
+        dx = SPEED;
     }
     public static Bullet get(float x, float y, int power) {
         Bullet bullet = (Bullet) RecycleBin.get(Bullet.class);
@@ -34,11 +35,14 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
-        if (dstRect.bottom < 0) {
+        if (dstRect.bottom < 0 || dstRect.top > Metrics.height) {
+            Scene.top().remove(MainScene.Layer.bullet, this);
+            }
+        if(dstRect.left<0 || dstRect.right > Metrics.width){
             Scene.top().remove(MainScene.Layer.bullet, this);
         }
-    }
 
+    }
     @Override
     public RectF getCollisionRect() {
         return dstRect;
