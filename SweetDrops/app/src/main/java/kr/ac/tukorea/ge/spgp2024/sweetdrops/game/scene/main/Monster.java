@@ -12,8 +12,8 @@ import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
-public class Fighter extends Sprite {
-    private static final String TAG = Fighter.class.getSimpleName();
+public class Monster extends Sprite {
+    private static final String TAG = Monster.class.getSimpleName();
     private static final float PLANE_WIDTH = 1.75f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 80 / 72;
     private static final float FIGHTER_Y_OFFSET = 1.2f;
@@ -26,6 +26,7 @@ public class Fighter extends Sprite {
     private static final float SPARK_OFFSET = 0.66f;
     private static final float BULLET_OFFSET = 0.8f;
 
+    protected RectF collisionRect = new RectF();
     private static final float MAX_ROLL_TIME = 0.4f;
     private float rollTime;
     private static final Rect[] rects = new Rect[] {
@@ -52,7 +53,7 @@ public class Fighter extends Sprite {
     private Bitmap targetBmp;
     private float fireCoolTime = FIRE_INTERVAL;
 
-    public Fighter() {
+    public Monster() {
         super(R.mipmap.character);
         setPosition(Metrics.width / 2, Metrics.height - FIGHTER_Y_OFFSET, PLANE_WIDTH, PLANE_HEIGHT);
         setTargetX(x);
@@ -149,5 +150,9 @@ public class Fighter extends Sprite {
                 return true;
         }
         return false;
+    }
+
+    public RectF getCollisionRect() {
+        return dstRect;
     }
 }

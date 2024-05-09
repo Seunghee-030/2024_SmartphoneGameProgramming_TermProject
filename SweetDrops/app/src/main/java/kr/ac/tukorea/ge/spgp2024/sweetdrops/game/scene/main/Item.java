@@ -76,6 +76,15 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
             }
         }
 
+        // 아이템과 몬스터의 충돌 감지
+        MainScene scene = (MainScene) Scene.top();
+        if (scene != null) {
+            Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요합니다.)
+            if (monster != null && isCollidingWith(monster)) {
+                System.out.println("충돌 아이템, 몬스터");
+                //scene.recycleItem(this); // 아이템 재활용
+            }
+        }
     }
 
 
@@ -91,9 +100,15 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         canvas.restore();
     }
 
+    public boolean isCollidingWith(Monster monster) {
+        RectF itemRect = getCollisionRect();
+        RectF monsterRect = monster.getCollisionRect();
+        return RectF.intersects(itemRect, monsterRect);
+    }
+
     @Override
     public RectF getCollisionRect() {
-        return collisionRect;
+        return dstRect;
     }
 
     @Override

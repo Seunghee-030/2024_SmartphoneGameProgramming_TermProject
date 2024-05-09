@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="enemy_gauge_bg">#F5AAA4</color>
     <color name="enemy_gauge_fg">#2B95F1</color>
+    <color name="red">#FFF31000</color> <!-- 빨강 -->
+    <color name="brown">#FFA52A2A</color> <!-- 갈색 -->
+    <color name="blue">#FF0021FF</color> <!-- 파랑 -->
+    <color name="yellow">#FFfffF00</color> <!-- 노랑 -->
 </resources>

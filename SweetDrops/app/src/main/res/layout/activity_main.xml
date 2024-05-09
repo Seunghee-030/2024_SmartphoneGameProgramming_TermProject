@@ -1,30 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/title_bg"
     tools:context=".app.MainActivity">
 
     <LinearLayout
-        android:id="@+id/treeParent"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        >
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
+        <!-- 첫 번째 이미지 -->
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bgr_01_cover" />
+
+        <!-- 두 번째 이미지 -->
+        <ImageView
+            android:id="@+id/backgroundImage2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/bgr_01_cover"
+            android:scaleType="fitXY"
+            android:rotation="180"/>
+
+    </LinearLayout>
+
+    <!-- 중앙에 텍스트 배치 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <!-- 첫 번째 텍스트뷰 -->
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="40dp"
-            android:text="Sweet Drops"
-            android:textSize="80sp"
-             />
+            android:text="Sweet"
+            android:textColor="@color/red"
+            android:textSize="100sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp" />
+
+        <!-- 두 번째 텍스트뷰 -->
+        <TextView
+            android:id="@+id/titleTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drops"
+            android:textColor="@color/yellow"
+            android:textSize="70sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp" />
+
     </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

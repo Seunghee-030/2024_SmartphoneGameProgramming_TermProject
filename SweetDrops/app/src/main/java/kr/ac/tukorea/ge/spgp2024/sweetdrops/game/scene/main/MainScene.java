@@ -10,16 +10,22 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
-    private final Fighter fighter;
-    Score score; // package private
+    private final Monster monster;
+    private Score score; // package private
 
     public int getScore() {
         return score.getScore();
     }
 
+    // 추가된 메소드: 몬스터 인스턴스를 반환하는 메소드
+    public Monster getMonster() {
+        return monster;
+    }
+
     public enum Layer {
         bg, enemy, bullet, player, ui, controller, item, COUNT
     }
+
     public MainScene() {
         //Metrics.setGameSize(16, 16);
         initLayers(Layer.COUNT);
@@ -30,8 +36,8 @@ public class MainScene extends Scene {
         add(Layer.bg, new VertScrollBackground(R.mipmap.background, 0.001f));
         //add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
         add(MainScene.Layer.item, Item.get(0, 0));
-        this.fighter = new Fighter();
-        add(Layer.player, fighter);
+        this.monster = new Monster();
+        add(Layer.player, monster);
 
         this.score = new Score(R.mipmap.numbers_320x110, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(0);
@@ -49,6 +55,6 @@ public class MainScene extends Scene {
 
     @Override
     public boolean onTouch(MotionEvent event) {
-        return fighter.onTouch(event);
+        return monster.onTouch(event);
     }
 }
