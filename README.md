@@ -18,18 +18,18 @@ https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/faed
 
 
 * 시연영상
+
 https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/4ea5db94-e9db-4be7-ae99-0474cc9e1818
 
 
 * <현재 사용 중인 Game 클래스>
-
-* MainScene
-* Monster
-* Item
-* Candy
-* FireUnit
-* Bouncer
-* Bullet
+> MainScene
+> Monster
+> Item
+> Candy
+> FireUnit
+> Bouncer
+> Bullet
 
 
 * MainScene 클래스
