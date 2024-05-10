@@ -24,38 +24,25 @@ https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/4ea5
 <현재 사용 중인 Game 클래스>
 
 
-MainScene
-
-Monster
-
-Item
-
-Candy
-
-FireUnit
-
-Bouncer
-
-Bullet
-
-
+* MainScene
+* Monster
+* Item
+* Candy
+* FireUnit
+* Bouncer
+* Bullet
 
 
 MainScene 클래스
-
-모든 클래스와 상호작용하며, 화면에 표시되는 배경, 캐릭터, 아이템 등을 관리하고 업데이트.
-
-또한 터치 입력을 처리하고, 게임의 진행 상태를 업데이트하는 등의 역할.
+>모든 클래스와 상호작용하며, 화면에 표시되는 배경, 캐릭터, 아이템 등을 관리하고 업데이트.
+>또한 터치 입력을 처리하고, 게임의 진행 상태를 업데이트하는 등의 역할.
 
 
 
 FireUnit 클래스
-
-구성: 화면 상하로 이동가능한 장애물 유닛. 비트맵 리소스 사용하여 그림, 애니메이션 표현.
-
-상호작용: 터치 입력 받아 목표 위치 설정 및 총알 발사.
-
-주요 역할 : 아이템을 방해하는 총알 발사, obstacle Layer에 그려짐
+>구성: 화면 상하로 이동가능한 장애물 유닛. 비트맵 리소스 사용하여 그림, 애니메이션 표현.
+>상호작용: 터치 입력 받아 목표 위치 설정 및 총알 발사.
+>주요 역할 : 아이템을 방해하는 총알 발사, obstacle Layer에 그려짐
 
 
 
