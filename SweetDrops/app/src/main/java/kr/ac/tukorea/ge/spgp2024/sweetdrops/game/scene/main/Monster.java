@@ -18,8 +18,7 @@ public class Monster extends Sprite {
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 80 / 72;
     private static final float MONSTER_Y_OFFSET = 1.2f;
     private static final float TARGET_RADIUS = 0.5f;
-    private static final float SPEED = 5.0f;
-
+    private static final float SPEED = 5.0f;    //
     protected RectF collisionRect = new RectF();
     private static final float MAX_ROLL_TIME = 0.4f;
     private float rollTime;
