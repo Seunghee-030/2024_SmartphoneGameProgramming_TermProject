@@ -131,7 +131,7 @@ public class FireUnit extends Sprite {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                setTargetY(pts[0]);
+                setTargetY(pts[1]);
                 return true;
         }
         return false;
