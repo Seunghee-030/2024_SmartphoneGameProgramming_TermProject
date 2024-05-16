@@ -88,8 +88,8 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
             Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요합니다.)
             if (monster != null && isCollidingWith(monster)) {
                 System.out.println("충돌 - 아이템, 몬스터");
-                scene.remove(item, this);
-                scene.addScore(100000);
+                //scene.remove(item, this);
+                //scene.addScore(100000);
             }
         }
     }
