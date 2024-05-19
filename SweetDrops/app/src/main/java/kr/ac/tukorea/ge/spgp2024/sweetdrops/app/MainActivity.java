@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageButton;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +24,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         createAnimator();
+
+        // ImageButton 클릭 리스너 설정
+        ImageButton startGameButton = binding.getRoot().findViewById(R.id.imageButtonGameStart);
+        startGameButton.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, SweetDropsActivity.class));
+        });
     }
 
     private void createAnimator() {
@@ -48,9 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+       /* if (event.getAction() == MotionEvent.ACTION_DOWN) {
             startActivity(new Intent(this, SweetDropsActivity.class));
         }
-        return super.onTouchEvent(event);
+        return super.onTouchEvent(event);*/
+        return false;
     }
 }

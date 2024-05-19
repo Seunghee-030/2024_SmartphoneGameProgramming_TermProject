@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <!-- 첫 번째 이미지 -->
+        <!-- 왼쪽 박스 이미지 -->
         <ImageView
             android:id="@+id/backgroundImage"
             android:layout_width="0dp"
@@ -20,7 +21,8 @@
             android:scaleType="fitXY"
             android:src="@mipmap/bgr_01_cover" />
 
-        <!-- 두 번째 이미지 -->
+        <!-- 오른쪽 박스 이미지 -->
+
         <ImageView
             android:id="@+id/backgroundImage2"
             android:layout_width="0dp"
@@ -34,32 +36,55 @@
 
     <!-- 중앙에 텍스트 배치 -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <!-- 첫 번째 텍스트뷰 -->
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sweet"
-            android:textColor="@color/red"
-            android:textSize="100sp"
-            android:textStyle="bold"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@mipmap/sweet_drops_title_new" />
+
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp" />
 
-        <!-- 두 번째 텍스트뷰 -->
-        <TextView
-            android:id="@+id/titleTextView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Drops"
-            android:textColor="@color/yellow"
-            android:textSize="70sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp" />
+        <ImageButton
+            android:id="@+id/imageButtonGameStart"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/menu_button"
+            android:scaleType="fitXY"
+            app:srcCompat="@mipmap/menu_button_start" />
+
+        <ImageButton
+            android:id="@+id/imageButtonGameStart2"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/menu_button"
+            android:scaleType="fitXY"
+            app:srcCompat="@mipmap/menu_button_start" />
+
+        <ImageButton
+            android:id="@+id/imageButtonGameStart3"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/menu_button"
+            android:scaleType="fitXY"
+            app:srcCompat="@mipmap/menu_button_start" />
 
     </LinearLayout>
 
