@@ -85,11 +85,21 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         // 아이템과 몬스터의 충돌 감지
         MainScene scene = (MainScene) Scene.top();
         if (scene != null) {
-            Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요합니다.)
+            Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요)
             if (monster != null && isCollidingWith(monster)) {
-                System.out.println("충돌 - 아이템, 몬스터");
+                System.out.println("충돌! - 아이템, 몬스터");
                 //scene.remove(item, this);
                 //scene.addScore(100000);
+                // 아이템 물리 구현을 위해 잠시 주석 처리
+            }
+
+            Bouncer bouncer = scene.getBouncer();
+            if (bouncer != null && isCollidingWith(bouncer)) {
+                System.out.println("충돌! - Item, Bouncer");
+                //bouncer.getCollisionRect()
+                // bouncer Rect를 가지고 닿았을떄 충돌처리
+                // 아이템 물리 구현을 위해 잠시 주석 처리
+
             }
         }
     }
@@ -111,6 +121,11 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         RectF itemRect = getCollisionRect();
         RectF monsterRect = monster.getCollisionRect();
         return RectF.intersects(itemRect, monsterRect);
+    }
+    public boolean isCollidingWith(Bouncer bouncer) {
+        RectF itemRect = getCollisionRect();
+        RectF bouncerRect = bouncer.getCollisionRect();
+        return RectF.intersects(itemRect, bouncerRect);
     }
 
     @Override

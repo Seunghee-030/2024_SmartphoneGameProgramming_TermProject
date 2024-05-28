@@ -11,6 +11,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Monster monster;
+    private final Bouncer bouncer;
     private final FireUnit fireUnit;
     private Score score; // package private
 
@@ -22,6 +23,7 @@ public class MainScene extends Scene {
     public Monster getMonster() {
         return monster;
     }
+    public Bouncer getBouncer() {return bouncer;}
 
     public enum Layer {
         bg, obstacle, enemy, bullet, player, ui, controller, item, COUNT
