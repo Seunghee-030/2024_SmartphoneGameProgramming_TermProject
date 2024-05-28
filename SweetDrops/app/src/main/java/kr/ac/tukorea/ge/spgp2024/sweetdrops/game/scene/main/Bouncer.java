@@ -16,7 +16,7 @@ public class Bouncer extends Sprite implements IBoxCollidable, IRecyclable {
     private static final float SPEED = 2.0f;
     private int power;
 
-    private Bouncer(float x, float y, int power) {
+    Bouncer(float x, float y, int power) {
         super(R.mipmap.obj_bouncer_01);
         setPosition(x, y, BOUNCER_WIDTH, BOUNCER_HEIGHT);
         this.power = power;
@@ -57,7 +57,7 @@ public class Bouncer extends Sprite implements IBoxCollidable, IRecyclable {
         canvas.save();
 
         float width = dstRect.width() * 0.7f;
-        canvas.translate(x - width / 2, dstRect.bottom);
+        canvas.translate(ballX - width / 2, dstRect.bottom);
         canvas.scale(width, width);
         canvas.restore();
     }

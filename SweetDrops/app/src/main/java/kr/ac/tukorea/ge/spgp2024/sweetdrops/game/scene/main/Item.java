@@ -1,13 +1,10 @@
 package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
-import static kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main.MainScene.Layer.item;
-
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.AnimSprite;
-import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
@@ -57,27 +54,27 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         // 중력에 따른 속도 변경
         dy += GRAVITY * elapsedSeconds;
         // 공의 위치 변경
-        y += dy * elapsedSeconds;
+        ballY += dy * elapsedSeconds;
 
         // X축 경계에 닿을 때 속도 반전
         if (dx > 0 && dstRect.right > Metrics.width) {
             // 오른쪽 벽에 닿았을 때
-            x = Metrics.width - dstRect.width(); // 화면 안으로 이동
+            ballX = Metrics.width - dstRect.width(); // 화면 안으로 이동
             dx = -dx; // X축 속도 반전
         } else if (dx < 0 && dstRect.left < 0) {
             // 왼쪽 벽에 닿았을 때
-            x = 0; // 화면 안으로 이동
+            ballX = 0; // 화면 안으로 이동
             dx = -dx; // X축 속도 반전
         }
 
         // Y축 경계에 닿을 때 속도 반전
         if (dy > 0 && dstRect.bottom > Metrics.height) {
             // 아래쪽 벽에 닿았을 때
-            y = Metrics.height - dstRect.height(); // 화면 안으로 이동
+            ballY = Metrics.height - dstRect.height(); // 화면 안으로 이동
             dy = -dy; // Y축 속도 반전
         } else if (dy < 0 && dstRect.top < 0) {
             // 위쪽 벽에 닿았을 때
-            y = 0; // 화면 안으로 이동
+            ballY = 0; // 화면 안으로 이동
             dy = -dy; // Y축 속도 반전
         }
 
@@ -96,7 +93,11 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
             Bouncer bouncer = scene.getBouncer();
             if (bouncer != null && isCollidingWith(bouncer)) {
                 System.out.println("충돌! - Item, Bouncer");
-                //bouncer.getCollisionRect()
+                float x = bouncer.getCollisionRect().right;
+                float x1 = bouncer.getCollisionRect().left;
+                float y = bouncer.getCollisionRect().top;
+                float y1 = bouncer.getCollisionRect().bottom;
+                BounceBall(x,y,x1,y1);
                 // bouncer Rect를 가지고 닿았을떄 충돌처리
                 // 아이템 물리 구현을 위해 잠시 주석 처리
 
@@ -104,6 +105,32 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         }
     }
 
+    public void BounceBall(float x, float y, float x1, float y1) {
+        // Ball position
+
+        // Ball direction
+
+        // Block position and size
+        int blockX = 100;
+        int blockY = 100;
+        int blockSize = 50;
+
+            while (true) {
+                if (ballX + dx < 0 || ballX + dx > dstRect.width() - 30) dx = -dx;
+                if (ballY + dy < 0 || ballY + dy > dstRect.height() - 50) dy = -dy;
+                // Check if the ball hits the block
+                if (ballX + dx >= blockX && ballX + dx <= blockX + blockSize &&
+                        ballY + dy >= blockY && ballY + dy <= blockY + blockSize) {
+                    dx = -dx;
+                    dy = -dy;
+                }
+                ballX += dx;
+                ballY += dy;
+
+            }
+
+
+    }
 
     @Override
     public void draw(Canvas canvas) {
@@ -111,7 +138,7 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         canvas.save();
 
         float width = dstRect.width() * 0.7f;
-        canvas.translate(x - width / 2, dstRect.bottom);
+        canvas.translate(ballX - width / 2, dstRect.bottom);
         canvas.scale(width, width);
         //gauge.draw(canvas, (float)life / maxLife);
         canvas.restore();

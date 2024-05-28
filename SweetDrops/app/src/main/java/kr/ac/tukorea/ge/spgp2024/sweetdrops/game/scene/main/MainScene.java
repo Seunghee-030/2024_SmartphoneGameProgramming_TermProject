@@ -30,6 +30,7 @@ public class MainScene extends Scene {
     }
 
     public MainScene() {
+
         //Metrics.setGameSize(16, 16);
         initLayers(Layer.COUNT);
 
@@ -40,6 +41,7 @@ public class MainScene extends Scene {
 
         add(MainScene.Layer.item, Item.get(0, 0));
         this.monster = new Monster();
+        this.bouncer = new Bouncer(0,0,0);
         this.fireUnit = new FireUnit();
         add(Layer.player, monster);
         add(Layer.obstacle, fireUnit);

@@ -8,7 +8,6 @@ import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
-import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
@@ -59,7 +58,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         dy += gravity * deltaTime;
 
         // 공의 위치 변경
-        y += dy * deltaTime;
+        ballY += dy * deltaTime;
     }
 
 
@@ -69,7 +68,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         canvas.save();
 
         float width = dstRect.width() * 0.7f;
-        canvas.translate(x - width / 2, dstRect.bottom);
+        canvas.translate(ballX - width / 2, dstRect.bottom);
         canvas.scale(width, width);
         gauge.draw(canvas, (float)life / maxLife);
         canvas.restore();

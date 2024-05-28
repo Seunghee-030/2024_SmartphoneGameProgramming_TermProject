@@ -4,12 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
-import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Monster extends Sprite {
@@ -43,29 +41,29 @@ public class Monster extends Sprite {
     public Monster() {
         super(R.mipmap.character);
         setPosition(Metrics.width / 2, Metrics.height - MONSTER_Y_OFFSET, PLANE_WIDTH, PLANE_HEIGHT);
-        setTargetX(x);
+        setTargetX(ballX);
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];
     }
 
     @Override
     public void update(float elapsedSeconds) {
-        if (targetX < x) {
+        if (targetX < ballX) {
             dx = -SPEED;
-        } else if (x < targetX) {
+        } else if (ballX < targetX) {
             dx = SPEED;
         } else {
             dx = 0;
         }
         super.update(elapsedSeconds);
-        float adjx = x;
-        if ((dx < 0 && x < targetX) || (dx > 0 && x > targetX)) {
+        float adjx = ballX;
+        if ((dx < 0 && ballX < targetX) || (dx > 0 && ballX > targetX)) {
             adjx = targetX;
         } else {
-            adjx = Math.max(radius, Math.min(x, Metrics.width - radius));
+            adjx = Math.max(radius, Math.min(ballX, Metrics.width - radius));
         }
-        if (adjx != x) {
-            setPosition(adjx, y, PLANE_WIDTH, PLANE_HEIGHT);
+        if (adjx != ballX) {
+            setPosition(adjx, ballY, PLANE_WIDTH, PLANE_HEIGHT);
             dx = 0;
         }
 
@@ -98,8 +96,8 @@ public class Monster extends Sprite {
     private void setTargetX(float x) {
         targetX = Math.max(radius, Math.min(x, Metrics.width - radius));
         targetRect.set(
-                targetX - TARGET_RADIUS, y - TARGET_RADIUS,
-                targetX + TARGET_RADIUS, y + TARGET_RADIUS
+                targetX - TARGET_RADIUS, ballY - TARGET_RADIUS,
+                targetX + TARGET_RADIUS, ballY + TARGET_RADIUS
         );
     }
 
