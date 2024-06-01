@@ -15,13 +15,13 @@ public class VertScrollBackground extends Sprite {
     }
     @Override
     public void update(float elapsedSeconds) {
-        this.ballY += speed * elapsedSeconds; // y 값을 스크롤된 양으로 사용한다
+        this.posY += speed * elapsedSeconds; // y 값을 스크롤된 양으로 사용한다
     }
 
     @Override
     public void draw(Canvas canvas) {
         //super.draw(canvas);
-        float curr = ballY % height;
+        float curr = posY % height;
         if (curr > 0) curr -= height;
         while (curr < Metrics.height) {
             dstRect.set(0, curr, Metrics.width, curr + height);

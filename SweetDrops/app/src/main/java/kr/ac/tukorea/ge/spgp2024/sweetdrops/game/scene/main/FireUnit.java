@@ -42,33 +42,32 @@ public class FireUnit extends Sprite {
     public FireUnit() {
         super(R.mipmap.obj_pump);
         setPosition(FIREUNIT_X_OFFSET, Metrics.height, PLANE_WIDTH, PLANE_HEIGHT);
-        setTargetY(ballY);
+        setTargetY(posY);
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];
     }
 
     @Override
     public void update(float elapsedSeconds) {
-        ballX += dx * elapsedSeconds;
 
         super.update(elapsedSeconds);
 
-        if (targetY < ballY) {
+        if (targetY < posY) {
             dy = -SPEED;
-        } else if (ballY < targetY) {
+        } else if (posY < targetY) {
             dy = SPEED;
         } else {
             dy = 0;
         }
         super.update(elapsedSeconds);
-        float adjy = ballY;
-        if ((dy < 0 && ballY < targetY) || (dy > 0 && ballY > targetY)) {
+        float adjy = posY;
+        if ((dy < 0 && posY < targetY) || (dy > 0 && posY > targetY)) {
             adjy = targetY;
         } else {
-            adjy = Math.max(radius, Math.min(ballY, Metrics.height - radius));
+            adjy = Math.max(radius, Math.min(posY, Metrics.height - radius));
         }
-        if (adjy != ballY) {
-            setPosition(ballX, adjy, PLANE_WIDTH, PLANE_HEIGHT);
+        if (adjy != posY) {
+            setPosition(posX, adjy, PLANE_WIDTH, PLANE_HEIGHT);
             dy = 0;
         }
 
@@ -100,7 +99,7 @@ public class FireUnit extends Sprite {
         int score = scene.getScore();
         //int power = 10 + score / 1000;
         int power = 10;
-        Bullet bullet = Bullet.get(ballX + BULLET_OFFSET, ballY, power);
+        Bullet bullet = Bullet.get(posX + BULLET_OFFSET, posY, power);
 
         scene.add(MainScene.Layer.bullet, bullet);
     }
@@ -112,7 +111,7 @@ public class FireUnit extends Sprite {
         }
         // 객체를 90도 회전하여 그리기
         canvas.save();
-        canvas.rotate(90, ballX, ballY); // 90도 회전
+        canvas.rotate(90, posX, posY); // 90도 회전
         super.draw(canvas);
         canvas.restore();
 
@@ -121,8 +120,8 @@ public class FireUnit extends Sprite {
     private void setTargetY(float y) {
         targetY = Math.max(radius, Math.min(y, Metrics.height - radius));
         targetRect.set(
-                 ballX - TARGET_RADIUS, targetY - TARGET_RADIUS,
-                ballX + TARGET_RADIUS, targetY + TARGET_RADIUS
+                 posX - TARGET_RADIUS, targetY - TARGET_RADIUS,
+                posX + TARGET_RADIUS, targetY + TARGET_RADIUS
         );
     }
 
@@ -130,12 +129,15 @@ public class FireUnit extends Sprite {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                if(event.getY()<400 && event.getY()>0 && event.getX()>0 && event.getX()<400){
+                System.out.println("posY : " + posY + " | getY : " + event.getY());
+                System.out.println("posX : " + posX + " | getX : " + event.getX());
+                //if(event.getY()<posY && event.getY()>posY+300 ){
                     System.out.println("!!Click");
-                }
-                float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                setTargetY(pts[1]);
-                return true;
+                    float[] pts = Metrics.fromScreen(event.getX(), event.getY());
+                    setTargetY(pts[1]);
+                    return true;
+                //}
+
         }
         return false;
     }

@@ -14,7 +14,7 @@ public class Sprite implements IGameObject {
     protected Bitmap bitmap;
     protected Rect srcRect;
     protected final RectF dstRect = new RectF();
-    protected float ballX, ballY, dx, dy;
+    protected float posX, posY, dx, dy;
     protected float width, height, radius;
 
     public Sprite(int mipmapId) {
@@ -25,14 +25,14 @@ public class Sprite implements IGameObject {
     }
 
     public void setPosition(float x, float y, float radius) {
-        this.ballX = x;
-        this.ballY = y;
+        this.posX = x;
+        this.posY = y;
         this.width = this.height = 2 * radius;
         dstRect.set(x - radius, y - radius, x + radius, y + radius);
     }
     public void setPosition(float x, float y, float width, float height) {
-        this.ballX = x;
-        this.ballY = y;
+        this.posX = x;
+        this.posY = y;
         this.width = width;
         this.height = height;
         radius = Math.min(width, height) / 2;
@@ -42,8 +42,8 @@ public class Sprite implements IGameObject {
     public void update(float elapsedSeconds) {
         float timedDx = dx * elapsedSeconds;
         float timedDy = dy * elapsedSeconds;
-        ballX += timedDx;
-        ballY += timedDy;
+        posX += timedDx;
+        posY += timedDy;
         dstRect.offset(timedDx, timedDy);
     }
 

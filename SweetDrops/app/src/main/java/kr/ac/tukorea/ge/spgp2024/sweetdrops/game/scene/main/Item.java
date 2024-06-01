@@ -60,22 +60,22 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         // X축 경계에 닿을 때 속도 반전
      if (dx > 0 && dstRect.right > Metrics.width) {
             // 오른쪽 벽에 닿았을 때
-            ballX = Metrics.width - dstRect.width(); // 화면 안으로 이동
+            posX = Metrics.width - dstRect.width(); // 화면 안으로 이동
             dx = -dx; // X축 속도 반전
         } else if (dx < 0 && dstRect.left < 0) {
             // 왼쪽 벽에 닿았을 때
-            ballX = 0; // 화면 안으로 이동
+            posX = 0; // 화면 안으로 이동
             dx = -dx; // X축 속도 반전
         }
 
         // Y축 경계에 닿을 때 속도 반전
         if (dy > 0 && dstRect.bottom > Metrics.height) {
             // 아래쪽 벽에 닿았을 때
-            ballY = Metrics.height - dstRect.height(); // 화면 안으로 이동
+            posY = Metrics.height - dstRect.height(); // 화면 안으로 이동
             dy = -dy; // Y축 속도 반전
         } else if (dy < 0 && dstRect.top < 0) {
             // 위쪽 벽에 닿았을 때
-            ballY = 0; // 화면 안으로 이동
+            posY = 0; // 화면 안으로 이동
             dy = -dy; // Y축 속도 반전
         }
 
@@ -103,25 +103,25 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
                 // 가로
                 // 왼쪽 측면에 닿았을 때
                 if (dx > 0 && dstRect.right > bouncerLeft) {
-                    ballX = bouncerLeft - dstRect.width(); // 화면 안으로 이동
+                    posX = bouncerLeft - dstRect.width(); // 화면 안으로 이동
                     dx = -dx; // X축 속도 반전
                 }
                 // 오른쪽 측면에 닿았을 때
                 else if (dx < 0 && dstRect.left < bouncerRight) {
 
-                    ballX = bouncerRight; // 화면 안으로 이동
+                    posX = bouncerRight; // 화면 안으로 이동
                     dx = -dx; // X축 속도 반전
                 }
 
                 // 세로
                 // 위쪽에 닿았을 때
                 if (dy > 0 && dstRect.bottom > bouncerTop) {
-                    ballY = bouncerTop - dstRect.height(); // 화면 안으로 이동
+                    posY = bouncerTop - dstRect.height(); // 화면 안으로 이동
                     dy = -dy; // Y축 속도 반전
                 }
                 // 아래쪽에 닿았을 때
                 else if (dy < 0 && dstRect.top < bouncerBottom) {
-                    ballY = bouncerBottom; // 화면 안으로 이동
+                    posY = bouncerBottom; // 화면 안으로 이동
                     dy = -dy; // Y축 속도 반전
                 }
 
@@ -154,22 +154,22 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
                 // X축 경계에 닿을 때 속도 반전
                 if (dx > 0 && dstRect.right > Metrics.width) {
                     // 오른쪽 벽에 닿았을 때
-                    ballX = Metrics.width - dstRect.width(); // 화면 안으로 이동
+                    posX = Metrics.width - dstRect.width(); // 화면 안으로 이동
                     dx = -dx; // X축 속도 반전
                 } else if (dx < 0 && dstRect.left < 0) {
                     // 왼쪽 벽에 닿았을 때
-                    ballX = 0; // 화면 안으로 이동
+                    posX = 0; // 화면 안으로 이동
                     dx = -dx; // X축 속도 반전
                 }
 
                 // Y축 경계에 닿을 때 속도 반전
                 if (dy > 0 && dstRect.bottom > Metrics.height) {
                     // 아래쪽 벽에 닿았을 때
-                    ballY = Metrics.height - dstRect.height(); // 화면 안으로 이동
+                    posY = Metrics.height - dstRect.height(); // 화면 안으로 이동
                     dy = -dy; // Y축 속도 반전
                 } else if (dy < 0 && dstRect.top < 0) {
                     // 위쪽 벽에 닿았을 때
-                    ballY = 0; // 화면 안으로 이동
+                    posY = 0; // 화면 안으로 이동
                     dy = -dy; // Y축 속도 반전
                 }
 
@@ -185,7 +185,7 @@ public class Item extends AnimSprite implements IBoxCollidable, IRecyclable {
         canvas.save();
 
         float width = dstRect.width() * 0.7f;
-        canvas.translate(ballX - width / 2, dstRect.bottom);
+        canvas.translate(posX - width / 2, dstRect.bottom);
         canvas.scale(width, width);
         //gauge.draw(canvas, (float)life / maxLife);
         canvas.restore();

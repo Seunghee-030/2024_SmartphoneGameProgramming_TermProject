@@ -41,29 +41,29 @@ public class Monster extends Sprite {
     public Monster() {
         super(R.mipmap.character);
         setPosition(Metrics.width / 2, Metrics.height - MONSTER_Y_OFFSET, PLANE_WIDTH, PLANE_HEIGHT);
-        setTargetX(ballX);
+        setTargetX(posX);
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];
     }
 
     @Override
     public void update(float elapsedSeconds) {
-        if (targetX < ballX) {
+        if (targetX < posX) {
             dx = -SPEED;
-        } else if (ballX < targetX) {
+        } else if (posX < targetX) {
             dx = SPEED;
         } else {
             dx = 0;
         }
         super.update(elapsedSeconds);
-        float adjx = ballX;
-        if ((dx < 0 && ballX < targetX) || (dx > 0 && ballX > targetX)) {
+        float adjx = posX;
+        if ((dx < 0 && posX < targetX) || (dx > 0 && posX > targetX)) {
             adjx = targetX;
         } else {
-            adjx = Math.max(radius, Math.min(ballX, Metrics.width - radius));
+            adjx = Math.max(radius, Math.min(posX, Metrics.width - radius));
         }
-        if (adjx != ballX) {
-            setPosition(adjx, ballY, PLANE_WIDTH, PLANE_HEIGHT);
+        if (adjx != posX) {
+            setPosition(adjx, posY, PLANE_WIDTH, PLANE_HEIGHT);
             dx = 0;
         }
 
@@ -96,8 +96,8 @@ public class Monster extends Sprite {
     private void setTargetX(float x) {
         targetX = Math.max(radius, Math.min(x, Metrics.width - radius));
         targetRect.set(
-                targetX - TARGET_RADIUS, ballY - TARGET_RADIUS,
-                targetX + TARGET_RADIUS, ballY + TARGET_RADIUS
+                targetX - TARGET_RADIUS, posY - TARGET_RADIUS,
+                targetX + TARGET_RADIUS, posY + TARGET_RADIUS
         );
     }
 
