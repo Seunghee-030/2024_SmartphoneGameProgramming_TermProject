@@ -49,16 +49,6 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     }
     @Override
     public void update(float elapsedSeconds) {
-        super.update(elapsedSeconds);
-        // 중력 가속도 설정
-        float gravity = 0.8f; // 중력 가속도 (m/s^2)
-        float deltaTime = elapsedSeconds; // 시간 간격
-
-        // 중력에 따른 속도 변경
-        dy += gravity * deltaTime;
-
-        // 공의 위치 변경
-        ballY += dy * deltaTime;
     }
 
 

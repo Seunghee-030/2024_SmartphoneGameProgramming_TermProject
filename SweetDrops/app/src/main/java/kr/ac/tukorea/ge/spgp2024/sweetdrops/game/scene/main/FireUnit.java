@@ -130,6 +130,9 @@ public class FireUnit extends Sprite {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
+                if(event.getY()<400 && event.getY()>0 && event.getX()>0 && event.getX()<400){
+                    System.out.println("!!Click");
+                }
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
                 setTargetY(pts[1]);
                 return true;
