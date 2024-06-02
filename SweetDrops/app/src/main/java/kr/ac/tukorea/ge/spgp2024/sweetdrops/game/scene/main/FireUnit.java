@@ -59,7 +59,9 @@ public class FireUnit extends Sprite {
         } else {
             dy = 0;
         }
+
         super.update(elapsedSeconds);
+
         float adjy = posY;
         if ((dy < 0 && posY < targetY) || (dy > 0 && posY > targetY)) {
             adjy = targetY;
@@ -70,7 +72,9 @@ public class FireUnit extends Sprite {
             setPosition(posX, adjy, PLANE_WIDTH, PLANE_HEIGHT);
             dy = 0;
         }
-
+        //System.out.println("pos : " + posX + ", " + posY); // 부동
+        //System.out.println("pos : " + posX + ", " + posY);  //
+        System.out.println("target : " + FIREUNIT_X_OFFSET + ", " + targetY);
         fireBullet(elapsedSeconds);
         updateRoll(elapsedSeconds);
     }
@@ -129,14 +133,14 @@ public class FireUnit extends Sprite {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                System.out.println("posY : " + posY + " | getY : " + event.getY());
-                System.out.println("posX : " + posX + " | getX : " + event.getX());
-                //if(event.getY()<posY && event.getY()>posY+300 ){
+                //System.out.println("posY : " + posY + " | getY : " + event.getY());
+                //System.out.println("posX : " + posX + " | getX : " + event.getX());
+                if(event.getY()<targetY && event.getY()>targetY+PLANE_HEIGHT ){
                     System.out.println("!!Click");
                     float[] pts = Metrics.fromScreen(event.getX(), event.getY());
                     setTargetY(pts[1]);
                     return true;
-                //}
+                }
 
         }
         return false;

@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         createAnimator();
+        
+        // 잠시 플레이 씬부터 실행되도록 추가
+        startActivity(new Intent(MainActivity.this, SweetDropsActivity.class));
 
         // ImageButton 클릭 리스너 설정
         ImageButton startGameButton = binding.getRoot().findViewById(R.id.imageButtonGameStart);

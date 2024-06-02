@@ -8,6 +8,7 @@ import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main.Vector2;
 
 public class Sprite implements IGameObject {
     private static final String TAG = Sprite.class.getSimpleName();
@@ -15,6 +16,7 @@ public class Sprite implements IGameObject {
     protected Rect srcRect;
     protected final RectF dstRect = new RectF();
     protected float posX, posY, dx, dy;
+    protected Vector2 position;
     protected float width, height, radius;
 
     public Sprite(int mipmapId) {
