@@ -2,7 +2,7 @@ package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
-
+import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
@@ -12,7 +12,8 @@ import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 
 public class Item extends AnimSprite implements IBoxCollidable {
     private static final float GRAVITY = 9.8f; // 중력 가속도
-    private static final float BOUNCE_FACTOR = 0.7f; // 튕김 계수 (에너지 손실을 고려한 반발력)
+    private float SIDE_BOUNCE_FACTOR = 0.1f;
+    private static final float BOUNCE_FACTOR = 0.8f; // 튕김 계수 (에너지 손실을 고려한 반발력)
     private static final float RADIUS = 0.6f;
     private static final int[] resIds = {
             R.mipmap.candy };
@@ -53,7 +54,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
 
-        vel = vel.add(new Vector2(0.0f, GRAVITY).multiply(elapsedSeconds));
+        vel = vel.add(new Vector2(SIDE_BOUNCE_FACTOR, GRAVITY).multiply(elapsedSeconds));
         position = position.add(vel.multiply(elapsedSeconds));
         
         // 바닥에 닿았을 때 튕김 처리
@@ -61,6 +62,46 @@ public class Item extends AnimSprite implements IBoxCollidable {
             position.y = Metrics.height - RADIUS;
             vel.y = -vel.y * BOUNCE_FACTOR;
         }
+        if (position.y < 0 + RADIUS) {
+            position.y = 0 + RADIUS;
+            vel.y = -vel.y * BOUNCE_FACTOR;
+        }
+
+        // 벽에 닿았을 때 튕김 처리
+        if (position.x > Metrics.width - RADIUS) {     // 오른쪽
+            position.x = Metrics.width - RADIUS;
+            vel.x = -vel.x * BOUNCE_FACTOR;
+        }
+        if (position.x < 0 + RADIUS) {     // 왼쪽
+            position.x = 0 + RADIUS;
+            vel.x = -vel.x * BOUNCE_FACTOR;
+        }
+
+        // 아이템과 몬스터의 충돌 감지
+        MainScene scene = (MainScene) Scene.top();
+        if (scene != null) {
+            Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요)
+            if (monster != null && isCollidingWith(monster)) {
+                System.out.println("충돌! - 아이템, 몬스터");
+                //scene.remove(item, this);
+                //scene.addScore(100000);
+                // 아이템 물리 구현을 위해 잠시 주석 처리
+            }
+
+            Bouncer bouncer = scene.getBouncer();
+            if (bouncer != null && isCollidingWith(bouncer)) {
+                System.out.println("충돌! - Item, Bouncer");
+                float bouncerLeft = bouncer.getCollisionRect().right;
+                float bouncerRight = bouncer.getCollisionRect().left;
+                float bouncerTop = bouncer.getCollisionRect().top;
+                float bouncerBottom = bouncer.getCollisionRect().bottom;
+                // 바닥에 닿았을 때 튕김 처리
+                if (position.y > bouncerTop - RADIUS) {
+                    position.y = bouncerTop - RADIUS;
+                    vel.y = -vel.y * BOUNCE_FACTOR;
+                }
+            }}
+
         updateDstRect(); // 위치 업데이트 후 dstRect 갱신
     }
 
