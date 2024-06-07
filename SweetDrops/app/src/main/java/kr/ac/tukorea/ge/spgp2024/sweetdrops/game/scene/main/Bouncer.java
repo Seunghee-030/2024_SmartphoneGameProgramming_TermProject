@@ -21,15 +21,13 @@ public class Bouncer extends Sprite {
     public Bouncer() {
         super(R.mipmap.obj_bouncer);
         setPosition(BOUNCER_X, Metrics.height - BOUNCER_Y_OFFSET, BOUNCER_WIDTH, BOUNCER_HEIGHT);
-
-        srcRect =  new Rect( 0, 0, 182, 72);
+        srcRect = new Rect(0, 0, 182, 72);
     }
 
     @Override
     public void update(float elapsedSeconds) {
-
+        // Bouncer 업데이트 로직이 있다면 추가하세요.
     }
-
 
     @Override
     public void draw(Canvas canvas) {
@@ -41,9 +39,13 @@ public class Bouncer extends Sprite {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                System.out.println(event.getX() + ", " + event.getY());
 
-                return true;
+                // Bouncer 사각형 영역 내에서 클릭 여부 확인
+               // if (dstRect.contains(pts[0], pts[1])) {
+                    Log.d(TAG, "Bouncer clicked: (" + pts[0] + ", " + pts[1] + ")");
+                    setPosition(pts[0], pts[1], BOUNCER_WIDTH, BOUNCER_HEIGHT);
+                    return true;
+                //}
         }
         return false;
     }

@@ -107,7 +107,6 @@ public class FireUnit extends Sprite {
 
                 // FireUnit 사각형 영역 내에서 클릭 여부 확인
                 if (dstRect.contains(pts[0], clickedY)) {
-                    System.out.println("!!Click inside FireUnit");
                     setTargetY(clickedY);
                     setPosition(posX, clickedY, PLANE_WIDTH, PLANE_HEIGHT);
                     return true;

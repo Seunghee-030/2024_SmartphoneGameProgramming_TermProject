@@ -84,9 +84,15 @@ public class Item extends AnimSprite implements IBoxCollidable {
                     position.y = bouncerTop + 0.2f - RADIUS;
                     vel.y = -vel.y * BOUNCE_FACTOR;
                 }
+            }
+            Spike spike = scene.getSpike(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요)
+            if (spike != null && isCollidingWith(spike)) {
+                //System.out.println("충돌! - 아이템, 몬스터");
+                //scene.remove(item, this);
+                //scene.addScore(100000);
+            }
 
-
-            }}
+        }
 
         updateDstRect(); // 위치 업데이트 후 dstRect 갱신
     }
@@ -141,6 +147,12 @@ public class Item extends AnimSprite implements IBoxCollidable {
         RectF itemRect = getCollisionRect();
         RectF bouncerRect = bouncer.getCollisionRect();
         return RectF.intersects(itemRect, bouncerRect);
+    }
+
+    public boolean isCollidingWith(Spike spike) {
+        RectF itemRect = getCollisionRect();
+        RectF spikeRect = spike.getCollisionRect();
+        return RectF.intersects(itemRect, spikeRect);
     }
 
     @Override

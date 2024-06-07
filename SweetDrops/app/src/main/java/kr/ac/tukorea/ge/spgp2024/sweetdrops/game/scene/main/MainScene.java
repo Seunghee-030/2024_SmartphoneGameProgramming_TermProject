@@ -13,6 +13,7 @@ public class MainScene extends Scene {
     private final Monster monster;
     private final Bouncer bouncer;
     private final FireUnit fireUnit;
+    private final Spike spike;
     private Score score; // package private
 
     public int getScore() {
@@ -24,6 +25,7 @@ public class MainScene extends Scene {
         return monster;
     }
     public Bouncer getBouncer() {return bouncer;}
+    public Spike getSpike() {return spike;}
 
     public enum Layer {
         bg, obstacle, enemy, bullet, player, ui, controller, item, COUNT
@@ -43,9 +45,13 @@ public class MainScene extends Scene {
         this.monster = new Monster();
         this.bouncer = new Bouncer();
         this.fireUnit = new FireUnit();
+        this.spike = new Spike();
+
         add(Layer.player, monster);
         add(Layer.obstacle, fireUnit);
         add(Layer.obstacle, bouncer);
+        add(Layer.obstacle, spike);
+
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(100000);
 
