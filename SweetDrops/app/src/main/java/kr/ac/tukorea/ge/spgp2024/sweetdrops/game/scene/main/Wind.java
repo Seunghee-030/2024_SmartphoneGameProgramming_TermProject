@@ -17,7 +17,7 @@ public class Wind extends Sprite implements IBoxCollidable, IRecyclable {
     private int power;
 
     private Wind(float x, float y, int power) {
-        super(R.mipmap.enemy_black_right);
+        super(R.mipmap.wind);
         setPosition(x, y, WIND_WIDTH, WIND_HEIGHT);
         this.power = power;
         dx = SPEED;
