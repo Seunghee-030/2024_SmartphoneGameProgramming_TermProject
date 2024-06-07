@@ -43,8 +43,8 @@ public class MainScene extends Scene {
         this.monster = new Monster();
         this.bouncer = new Bouncer();
         this.fireUnit = new FireUnit();
-        //add(Layer.player, monster);
-        //add(Layer.obstacle, fireUnit);
+        add(Layer.player, monster);
+        add(Layer.obstacle, fireUnit);
         add(Layer.obstacle, bouncer);
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(100000);

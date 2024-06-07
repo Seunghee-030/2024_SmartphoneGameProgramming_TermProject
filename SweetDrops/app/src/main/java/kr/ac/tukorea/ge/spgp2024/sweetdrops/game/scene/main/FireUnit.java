@@ -104,8 +104,10 @@ public class FireUnit extends Sprite {
         //int power = 10 + score / 1000;
         int power = 10;
         Bullet bullet = Bullet.get(posX + BULLET_OFFSET, posY, power);
-
         scene.add(MainScene.Layer.bullet, bullet);
+
+        //Wind wind = Wind.get(posX + BULLET_OFFSET, posY, power);
+        //scene.add(MainScene.Layer.bullet, wind);
     }
 
     @Override
