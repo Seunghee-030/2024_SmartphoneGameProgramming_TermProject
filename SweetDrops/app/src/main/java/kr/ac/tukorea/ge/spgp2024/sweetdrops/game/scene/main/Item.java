@@ -16,22 +16,26 @@ public class Item extends AnimSprite implements IBoxCollidable {
     private static final float GRAVITY = 9.8f; // 중력 가속도
     private float SIDE_BOUNCE_FACTOR = 0.0f;
     private static final float BOUNCE_FACTOR = 0.8f; // 튕김 계수 (에너지 손실을 고려한 반발력)
-    private static final float RADIUS = 0.6f;
+    private float RADIUS = 0.6f;
     private static final int[] resIds = {
-            R.mipmap.candy };
+            R.mipmap.candy, R.mipmap.candy_broken_anim
+    };
 
-    public static final int MAX_LEVEL = resIds.length - 1;
-    public static final float ANIM_FPS = 10.0f;
+    public static final int MAX_LEVEL = resIds.length - 2; // 마지막 리소스는 충돌 애니메이션이므로 제외
+    public static final float ANIM_FPS = 7.0f;
     protected RectF collisionRect = new RectF();
     private int level;
     private int life, maxLife;
     private Vector2 position;
     private Vector2 vel;
+    private boolean isBroken;
+    float startTime;
 
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
 
     private Item(int level, int index) {
         super(0, 0);
+        isBroken = false;
         init(level, index);
     }
 
@@ -41,6 +45,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
         setAnimationResource(resIds[level], ANIM_FPS);
         position = new Vector2(Metrics.width / 2, RADIUS); // 화면 가운데 맨 위에서 생성
         vel = new Vector2(0.0f, 0.0f); // 초기 속도
+        isBroken = false;
     }
 
     public static Item get(int level, int index) {
@@ -59,11 +64,13 @@ public class Item extends AnimSprite implements IBoxCollidable {
         vel = vel.add(new Vector2(SIDE_BOUNCE_FACTOR, GRAVITY).multiply(elapsedSeconds));
         position = position.add(vel.multiply(elapsedSeconds));
 
-        BounceBall(0, Metrics.height, Metrics.width, 0);
-
         // 아이템과 몬스터의 충돌 감지
         MainScene scene = (MainScene) Scene.top();
-        if (scene != null) {
+        if (scene != null && !isBroken) {
+
+            // 화면 경계와 충돌
+            BounceBall(0, Metrics.height, Metrics.width, 0);
+
             Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요)
             if (monster != null && isCollidingWith(monster)) {
                 //System.out.println("충돌! - 아이템, 몬스터");
@@ -85,16 +92,31 @@ public class Item extends AnimSprite implements IBoxCollidable {
                     vel.y = -vel.y * BOUNCE_FACTOR;
                 }
             }
-            Spike spike = scene.getSpike(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요)
-            if (spike != null && isCollidingWith(spike)) {
-                //System.out.println("충돌! - 아이템, 몬스터");
-                //scene.remove(item, this);
-                //scene.addScore(100000);
-            }
 
+            Spike spike = scene.getSpike(); // 스파이크 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getSpike() 메소드가 필요)
+            if (spike != null && isCollidingWith(spike)) {
+                // 스파이크와 충돌 시 애니메이션 변경
+                startTime = elapsedSeconds;
+                setAnimationResource(resIds[1], ANIM_FPS, 10); // 충돌 애니메이션 리소스로 변경
+                setScale(1.4f);
+                isBroken = true;
+                vel.y = -vel.y * BOUNCE_FACTOR/2;
+            }
+            if(startTime+50.f< elapsedSeconds)
+                scene.remove(item, this);
+
+
+        }
+        if(isBroken && position.y > Metrics.height + RADIUS){
+            scene.remove(item, this);
+            scene.addScore(-100000);
         }
 
         updateDstRect(); // 위치 업데이트 후 dstRect 갱신
+    }
+
+    private void setScale(float v) {
+        RADIUS = RADIUS*v;
     }
 
     private void BounceBall(float targetUpper, float targetBottom, float targetLeft, float targetRight) {

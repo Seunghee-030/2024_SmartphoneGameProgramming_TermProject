@@ -54,6 +54,8 @@ public class MainScene extends Scene {
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(100000);
+        /*if(score.getScore() <=0)
+            System.out.println("Game Over!!");*/
 
         add(Layer.ui, score);
     }
