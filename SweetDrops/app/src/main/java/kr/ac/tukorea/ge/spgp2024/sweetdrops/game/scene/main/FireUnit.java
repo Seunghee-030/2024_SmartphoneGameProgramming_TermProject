@@ -26,14 +26,15 @@ public class FireUnit extends Sprite {
     private static final float MAX_ROLL_TIME = 0.4f;
     private float rollTime;
     private static final Rect[] rects = new Rect[] {
-            new Rect( 0, 0, 147, 152),                    // 0
-            new Rect( 0, 152, 130, 152+178),                 // 1
-            new Rect( 0, 152+178, 130, 152+178*2),               // 2
-            new Rect( 9, 152+178*2, 130, 152+178*3),               // 3
-            new Rect( 9, 152+178*2, 129, 152+178*3+139),               // 4
-            new Rect( 9, 152+178*2+139, 129, 152+178*3+139*2),               // 5
+            new Rect(0, 0, 147, 152),                    // 0
+            new Rect(0, 152, 130, 152 + 178),                 // 1
+            new Rect(0, 152 + 178, 130, 152 + 178 * 2),               // 2
+            new Rect(9, 152 + 178 * 2, 130, 152 + 178 * 3),               // 3
+            new Rect(9, 152 + 178 * 2, 129, 152 + 178 * 3 + 139),               // 4
+            new Rect(9, 152 + 178 * 2 + 139, 129, 152 + 178 * 3 + 139 * 2),               // 5
     };
 
+    private float targetX;
     private float targetY;
     private RectF targetRect = new RectF();
     private Bitmap targetBmp;
@@ -49,47 +50,19 @@ public class FireUnit extends Sprite {
 
     @Override
     public void update(float elapsedSeconds) {
-
         super.update(elapsedSeconds);
-
-        if (targetY < posY) {
-            dy = -SPEED;
-        } else if (posY < targetY) {
-            dy = SPEED;
-        } else {
-            dy = 0;
-        }
-
-        super.update(elapsedSeconds);
-
         float adjy = posY;
-        if ((dy < 0 && posY < targetY) || (dy > 0 && posY > targetY)) {
-            adjy = targetY;
-        } else {
-            adjy = Math.max(radius, Math.min(posY, Metrics.height - radius));
-        }
-        if (adjy != posY) {
-            setPosition(posX, adjy, PLANE_WIDTH, PLANE_HEIGHT);
-            dy = 0;
-        }
-        //System.out.println("pos : " + posX + ", " + posY); // 부동
-        //System.out.println("pos : " + posX + ", " + posY);  //
-        System.out.println("target : " + FIREUNIT_X_OFFSET + ", " + targetY);
+        super.update(elapsedSeconds);
+
         fireBullet(elapsedSeconds);
         updateRoll(elapsedSeconds);
     }
 
     private void updateRoll(float elapsedSeconds) {
-        // rollTime을 증가시킴으로써 애니메이션을 진행
         rollTime += elapsedSeconds * 0.3f;
-
-        // rollTime이 MAX_ROLL_TIME을 넘어가면 초기화하여 반복되도록
         if (rollTime > MAX_ROLL_TIME)
             rollTime -= MAX_ROLL_TIME;
-
-        // 0부터 6까지의 값을 순환하도록 rollIndex를 계산
-        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 4); //6개의 프레임
-
+        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 4); // 6개의 프레임
         srcRect = rects[rollIndex];
     }
 
@@ -101,13 +74,9 @@ public class FireUnit extends Sprite {
 
         fireCoolTime = FIRE_INTERVAL;
         int score = scene.getScore();
-        //int power = 10 + score / 1000;
         int power = 10;
         Bullet bullet = Bullet.get(posX + BULLET_OFFSET, posY, power);
         scene.add(MainScene.Layer.bullet, bullet);
-
-        //Wind wind = Wind.get(posX + BULLET_OFFSET, posY, power);
-        //scene.add(MainScene.Layer.bullet, wind);
     }
 
     @Override
@@ -115,18 +84,16 @@ public class FireUnit extends Sprite {
         if (dx != 0) {
             canvas.drawBitmap(targetBmp, null, targetRect, null);
         }
-        // 객체를 90도 회전하여 그리기
         canvas.save();
         canvas.rotate(90, posX, posY); // 90도 회전
         super.draw(canvas);
         canvas.restore();
-
     }
 
     private void setTargetY(float y) {
         targetY = Math.max(radius, Math.min(y, Metrics.height - radius));
         targetRect.set(
-                 posX - TARGET_RADIUS, targetY - TARGET_RADIUS,
+                posX - TARGET_RADIUS, targetY - TARGET_RADIUS,
                 posX + TARGET_RADIUS, targetY + TARGET_RADIUS
         );
     }
@@ -135,15 +102,16 @@ public class FireUnit extends Sprite {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                //System.out.println("posY : " + posY + " | getY : " + event.getY());
-                //System.out.println("posX : " + posX + " | getX : " + event.getX());
-                if(event.getY()<targetY && event.getY()>targetY+PLANE_HEIGHT ){
-                    System.out.println("!!Click");
-                    float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                    setTargetY(pts[1]);
+                float[] pts = Metrics.fromScreen(event.getX(), event.getY());
+                float clickedY = pts[1];
+
+                // FireUnit 사각형 영역 내에서 클릭 여부 확인
+                if (dstRect.contains(pts[0], clickedY)) {
+                    System.out.println("!!Click inside FireUnit");
+                    setTargetY(clickedY);
+                    setPosition(posX, clickedY, PLANE_WIDTH, PLANE_HEIGHT);
                     return true;
                 }
-
         }
         return false;
     }

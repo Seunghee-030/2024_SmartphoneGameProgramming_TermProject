@@ -66,14 +66,14 @@ public class Item extends AnimSprite implements IBoxCollidable {
         if (scene != null) {
             Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요)
             if (monster != null && isCollidingWith(monster)) {
-                System.out.println("충돌! - 아이템, 몬스터");
+                //System.out.println("충돌! - 아이템, 몬스터");
                 //scene.remove(item, this);
                 //scene.addScore(100000);
             }
 
             Bouncer bouncer = scene.getBouncer();
             if (bouncer != null && isCollidingWith(bouncer)) {
-                System.out.println("충돌! - Item, Bouncer");
+                //System.out.println("충돌! - Item, Bouncer");
                 float bouncerLeft = bouncer.getCollisionRect().left;
                 float bouncerRight = bouncer.getCollisionRect().right;
                 float bouncerTop = bouncer.getCollisionRect().top;
