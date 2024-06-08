@@ -34,6 +34,10 @@ public class Monster extends Sprite {
             new Rect( 56*6+62+59+57+55, 0, 56*6+62+59+57+55+55, 62),    // 10
     };
 
+    private static final int[] resIds = {
+            R.mipmap.candy, R.mipmap.candy_broken_anim
+    };
+
     private float targetX;
     private RectF targetRect = new RectF();
     private Bitmap targetBmp;
@@ -45,6 +49,7 @@ public class Monster extends Sprite {
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];
     }
+
 
     @Override
     public void update(float elapsedSeconds) {

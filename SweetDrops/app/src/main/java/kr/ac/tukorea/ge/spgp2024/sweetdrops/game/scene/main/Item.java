@@ -29,7 +29,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
     private Vector2 position;
     private Vector2 vel;
     private boolean isBroken;
-    float startTime;
+    float brokenPosY;
 
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
 
@@ -74,8 +74,8 @@ public class Item extends AnimSprite implements IBoxCollidable {
             Monster monster = scene.getMonster(); // 몬스터 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getMonster() 메소드가 필요)
             if (monster != null && isCollidingWith(monster)) {
                 //System.out.println("충돌! - 아이템, 몬스터");
-                //scene.remove(item, this);
-                //scene.addScore(100000);
+                scene.remove(item, this);
+                scene.addScore(100000);
             }
 
             Bouncer bouncer = scene.getBouncer();
@@ -90,26 +90,33 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 if (position.y > bouncerTop + 0.2f - RADIUS) {
                     position.y = bouncerTop + 0.2f - RADIUS;
                     vel.y = -vel.y * BOUNCE_FACTOR;
+                    vel.x = -vel.x * BOUNCE_FACTOR;
                 }
             }
 
             Spike spike = scene.getSpike(); // 스파이크 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getSpike() 메소드가 필요)
             if (spike != null && isCollidingWith(spike)) {
                 // 스파이크와 충돌 시 애니메이션 변경
-                startTime = elapsedSeconds;
-                setAnimationResource(resIds[1], ANIM_FPS, 10); // 충돌 애니메이션 리소스로 변경
+                brokenPosY = position.y;
+                setAnimationResource(resIds[1], ANIM_FPS/2, 10); // 충돌 애니메이션 리소스로 변경
                 setScale(1.4f);
                 isBroken = true;
-                vel.y = -vel.y * BOUNCE_FACTOR/2;
+                vel.y = -vel.y * BOUNCE_FACTOR/3;
             }
-            if(startTime+50.f< elapsedSeconds)
-                scene.remove(item, this);
+
 
 
         }
-        if(isBroken && position.y > Metrics.height + RADIUS){
-            scene.remove(item, this);
-            scene.addScore(-100000);
+        if(isBroken){
+            if(position.y > Metrics.height + RADIUS) {
+                scene.remove(item, this);
+                scene.addScore(-100000);
+            }
+            // 시간을 두고 삭제하지 않고 충돌후 일정 아래로 떨어지면 사라지도록
+            if(position.y > brokenPosY+3.f){
+                scene.remove(item,this);
+                scene.addScore(-100000);
+            }
         }
 
         updateDstRect(); // 위치 업데이트 후 dstRect 갱신

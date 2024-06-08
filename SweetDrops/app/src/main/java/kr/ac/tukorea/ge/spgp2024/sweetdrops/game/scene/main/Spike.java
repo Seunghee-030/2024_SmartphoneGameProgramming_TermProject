@@ -26,6 +26,11 @@ public class Spike extends Sprite {
     }
 
     @Override
+    public void setPosition(float x, float y, float width, float height) {
+        super.setPosition(x, y, SPIKE_WIDTH, SPIKE_HEIGHT);
+    }
+
+    @Override
     public void update(float elapsedSeconds) {
 
     }

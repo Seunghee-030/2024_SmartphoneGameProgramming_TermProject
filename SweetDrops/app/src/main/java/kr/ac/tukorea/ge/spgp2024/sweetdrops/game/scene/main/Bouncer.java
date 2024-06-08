@@ -25,6 +25,11 @@ public class Bouncer extends Sprite {
     }
 
     @Override
+    public void setPosition(float x, float y, float width, float height) {
+        super.setPosition(x, y, BOUNCER_WIDTH, BOUNCER_HEIGHT);
+    }
+
+    @Override
     public void update(float elapsedSeconds) {
         // Bouncer 업데이트 로직이 있다면 추가하세요.
     }

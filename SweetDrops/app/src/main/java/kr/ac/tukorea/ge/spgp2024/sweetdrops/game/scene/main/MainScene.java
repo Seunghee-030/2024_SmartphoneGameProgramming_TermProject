@@ -12,6 +12,7 @@ public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Monster monster;
     private final Bouncer bouncer;
+    //private final Bouncer bouncer1;
     private final FireUnit fireUnit;
     private final Spike spike;
     private Score score; // package private
