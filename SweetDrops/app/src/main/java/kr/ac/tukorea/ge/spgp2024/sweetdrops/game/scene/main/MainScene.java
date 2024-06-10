@@ -34,6 +34,10 @@ public class MainScene extends Scene {
         return spikes.get(index);
     }
 
+    public List<Spike> getSpikes() {
+        return spikes;
+    }
+
     public enum Layer {
         bg, obstacle, enemy, bullet, player, ui, controller, item, COUNT
     }

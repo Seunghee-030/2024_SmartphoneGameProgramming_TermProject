@@ -11,6 +11,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
 import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
+import java.util.List;
 
 public class Item extends AnimSprite implements IBoxCollidable {
     private static final float GRAVITY = 9.8f; // 중력 가속도
@@ -43,7 +44,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
         this.level = level;
         this.life = this.maxLife = (level + 1) * 10;
         setAnimationResource(resIds[level], ANIM_FPS);
-        position = new Vector2(Metrics.width / 2 + Metrics.width/4, RADIUS); // 화면 가운데 맨 위에서 생성
+        position = new Vector2(Metrics.width / 2, RADIUS); // 화면 가운데 맨 위에서 생성
         vel = new Vector2(0.0f, 0.0f); // 초기 속도
         isBroken = false;
     }
@@ -93,21 +94,22 @@ public class Item extends AnimSprite implements IBoxCollidable {
                     vel.x = -vel.x * BOUNCE_FACTOR;
                 }
             }
-            //for(int i=0; i<4; i++){
-            Spike spike = scene.getSpike(1); // 스파이크 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getSpike() 메소드가 필요)
-            if (spike != null && isCollidingWith(spike)) {
-                // 스파이크와 충돌 시 애니메이션 변경
-                brokenPosY = position.y;
-                setAnimationResource(resIds[1], ANIM_FPS/2, 10); // 충돌 애니메이션 리소스로 변경
-                setScale(1.4f);
-                isBroken = true;
-                vel.y = -vel.y * BOUNCE_FACTOR/3;
+
+            // Check collision with all spikes
+            List<Spike> spikes = scene.getSpikes();
+            for (Spike spike : spikes) {
+                if (isCollidingWith(spike)) {
+                    // 스파이크와 충돌 시 애니메이션 변경
+                    brokenPosY = position.y;
+                    setAnimationResource(resIds[1], ANIM_FPS/2, 10); // 충돌 애니메이션 리소스로 변경
+                    setScale(1.4f);
+                    isBroken = true;
+                    vel.y = -vel.y * BOUNCE_FACTOR/3;
+                    break;
+                }
             }
-        //}
-
-
-
         }
+
         if(isBroken){
             if(position.y > Metrics.height + RADIUS) {
                 scene.remove(item, this);
