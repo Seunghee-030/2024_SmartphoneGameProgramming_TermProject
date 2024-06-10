@@ -78,8 +78,8 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 scene.remove(item, this);
                 scene.addScore(100000);
             }
-
-            Bouncer bouncer = scene.getBouncer();
+            List<Bouncer> bouncers = scene.getBouncers();
+            for (Bouncer bouncer : bouncers) {
             if (bouncer != null && isCollidingWith(bouncer)) {
                 //System.out.println("충돌! - Item, Bouncer");
                 float bouncerLeft = bouncer.getCollisionRect().left;
@@ -92,7 +92,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
                     position.y = bouncerTop + 0.2f - RADIUS;
                     vel.y = -vel.y * BOUNCE_FACTOR;
                     vel.x = -vel.x * BOUNCE_FACTOR;
-                }
+                }}
             }
 
             // Check collision with all spikes

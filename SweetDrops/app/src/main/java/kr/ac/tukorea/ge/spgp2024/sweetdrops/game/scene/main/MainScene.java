@@ -13,7 +13,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Monster monster;
-    private final Bouncer bouncer;
+    private final List<Bouncer> bouncers;
     private final FireUnit fireUnit;
     private final List<Spike> spikes; // Use a list to store multiple spikes
     private Score score; // package private
@@ -26,8 +26,12 @@ public class MainScene extends Scene {
         return monster;
     }
 
-    public Bouncer getBouncer() {
-        return bouncer;
+    public Bouncer getBouncer(int index) {
+        return bouncers.get(index);
+    }
+
+    public List<Bouncer> getBouncers() {
+        return bouncers;
     }
 
     public Spike getSpike(int index) {
@@ -52,13 +56,17 @@ public class MainScene extends Scene {
 
         add(Layer.item, Item.get(0, 0));
         this.monster = new Monster();
-        this.bouncer = new Bouncer();
+        this.bouncers = new ArrayList<>();
         this.fireUnit = new FireUnit();
         this.spikes = new ArrayList<>(); // Initialize the list
 
         add(Layer.player, monster);
         add(Layer.obstacle, fireUnit);
-        add(Layer.obstacle, bouncer);
+
+        // Add bouncers at desired positions
+        addBouncer(Metrics.width / 4, Metrics.height - 5f);
+        addBouncer(Metrics.width / 2, Metrics.height - 7f);
+        addBouncer(Metrics.width * 3 / 4, Metrics.height - 6f);
 
         // Add spikes at desired positions
         addSpike(Metrics.width / 4, Metrics.height / 2);
@@ -69,6 +77,12 @@ public class MainScene extends Scene {
         score.setScore(100000);
 
         add(Layer.ui, score);
+    }
+
+    public void addBouncer(float x, float y) {
+        Bouncer bouncer = new Bouncer(x, y);
+        bouncers.add(bouncer);
+        add(Layer.obstacle, bouncer);
     }
 
     public void addSpike(float x, float y) {
@@ -88,6 +102,11 @@ public class MainScene extends Scene {
 
     @Override
     public boolean onTouch(MotionEvent event) {
+        for (Bouncer bouncer : bouncers) {
+            if (bouncer.onTouch(event)) {
+                return true;
+            }
+        }
         return fireUnit.onTouch(event);
     }
 }

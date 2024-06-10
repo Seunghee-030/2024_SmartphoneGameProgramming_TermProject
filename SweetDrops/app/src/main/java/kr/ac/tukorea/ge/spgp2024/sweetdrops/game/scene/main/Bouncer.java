@@ -1,6 +1,5 @@
 package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -12,15 +11,13 @@ import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Bouncer extends Sprite {
-    private static final String TAG = Monster.class.getSimpleName();
+    private static final String TAG = Bouncer.class.getSimpleName();
     private static final float BOUNCER_WIDTH = 3f;
     private static final float BOUNCER_HEIGHT = BOUNCER_WIDTH / 3;
-    private static final float BOUNCER_X = Metrics.width / 2;
-    private static final float BOUNCER_Y_OFFSET = 5f;
 
-    public Bouncer() {
+    public Bouncer(float x, float y) {
         super(R.mipmap.obj_bouncer);
-        setPosition(BOUNCER_X, Metrics.height - BOUNCER_Y_OFFSET, BOUNCER_WIDTH, BOUNCER_HEIGHT);
+        setPosition(x, y, BOUNCER_WIDTH, BOUNCER_HEIGHT);
         srcRect = new Rect(0, 0, 182, 72);
     }
 
@@ -46,11 +43,11 @@ public class Bouncer extends Sprite {
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
 
                 // Bouncer 사각형 영역 내에서 클릭 여부 확인
-               // if (dstRect.contains(pts[0], pts[1])) {
-                    Log.d(TAG, "Bouncer clicked: (" + pts[0] + ", " + pts[1] + ")");
-                    setPosition(pts[0], pts[1], BOUNCER_WIDTH, BOUNCER_HEIGHT);
-                    return true;
-                //}
+                // if (dstRect.contains(pts[0], pts[1])) {
+                Log.d(TAG, "Bouncer clicked: (" + pts[0] + ", " + pts[1] + ")");
+                setPosition(pts[0], pts[1], BOUNCER_WIDTH, BOUNCER_HEIGHT);
+                return true;
+            //}
         }
         return false;
     }
