@@ -44,9 +44,9 @@ public class Cloud extends Sprite {
     private Bitmap targetBmp;
     private float fireCoolTime = FIRE_INTERVAL;
 
-    public Cloud() {
+    public Cloud(float x, float y) {
         super(R.mipmap.cloud_anim);
-        setPosition(CLOUD_WIDTH/2, 0 + CLOUD_Y_OFFSET, CLOUD_WIDTH, CLOUD_HEIGHT);
+        setPosition(x,y, CLOUD_WIDTH, CLOUD_HEIGHT);
         setTargetY(posY);
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];

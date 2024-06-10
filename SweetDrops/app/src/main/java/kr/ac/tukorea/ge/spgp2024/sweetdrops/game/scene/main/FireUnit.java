@@ -40,9 +40,9 @@ public class FireUnit extends Sprite {
     private Bitmap targetBmp;
     private float fireCoolTime = FIRE_INTERVAL;
 
-    public FireUnit() {
+    public FireUnit(float x, float y) {
         super(R.mipmap.obj_pump);
-        setPosition(FIREUNIT_X_OFFSET, Metrics.height, PLANE_WIDTH, PLANE_HEIGHT);
+        setPosition(x,y, PLANE_WIDTH, PLANE_HEIGHT);
         setTargetY(posY);
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];

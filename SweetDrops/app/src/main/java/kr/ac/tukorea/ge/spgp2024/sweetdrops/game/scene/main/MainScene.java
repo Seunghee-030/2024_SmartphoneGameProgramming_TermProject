@@ -14,8 +14,8 @@ public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Monster monster;
     private final List<Bouncer> bouncers;
-    private final FireUnit fireUnit;
-    private final Cloud cloud;
+    private final List<FireUnit> fireUnits;
+    private final List<Cloud> clouds;
     private final List<Spike> spikes; // Use a list to store multiple spikes
     private Score score; // package private
 
@@ -27,16 +27,8 @@ public class MainScene extends Scene {
         return monster;
     }
 
-    public Bouncer getBouncer(int index) {
-        return bouncers.get(index);
-    }
-
     public List<Bouncer> getBouncers() {
         return bouncers;
-    }
-
-    public Spike getSpike(int index) {
-        return spikes.get(index);
     }
 
     public List<Spike> getSpikes() {
@@ -58,20 +50,26 @@ public class MainScene extends Scene {
         add(Layer.item, Item.get(0, 0));
         this.monster = new Monster();
         this.bouncers = new ArrayList<>();
-        this.fireUnit = new FireUnit();
-        this.cloud = new Cloud();
+        this.fireUnits = new ArrayList<>();
+        this.clouds = new ArrayList<>();
         this.spikes = new ArrayList<>(); // Initialize the list
 
         add(Layer.player, monster);
-        add(Layer.obstacle, fireUnit);
-        add(Layer.obstacle, cloud);
 
-        // Add bouncers at desired positions
+        // Add FireUnits
+        addFireUnit(Metrics.width / 4, Metrics.height - 5f);
+        addFireUnit(Metrics.width / 3, Metrics.height - 5f);
+
+        // Add Clouds
+        addCloud(Metrics.width / 2, Metrics.height - 5f);
+        addCloud(Metrics.width / 1, Metrics.height - 5f);
+
+        // Add bouncers
         addBouncer(Metrics.width / 4, Metrics.height - 5f);
         addBouncer(Metrics.width / 2, Metrics.height - 7f);
         addBouncer(Metrics.width * 3 / 4, Metrics.height - 6f);
 
-        // Add spikes at desired positions
+        // Add spikes
         addSpike(Metrics.width / 4, Metrics.height / 2);
         addSpike(Metrics.width / 2, Metrics.height / 4);
         addSpike(Metrics.width * 3 / 4, Metrics.height / 2);
@@ -94,12 +92,19 @@ public class MainScene extends Scene {
         add(Layer.obstacle, spike);
     }
 
-    public void addScore(int amount) {
-        score.add(amount);
+    public void addCloud(float x, float y) {
+        Cloud cloud = new Cloud(x, y);
+        clouds.add(cloud);
+        add(Layer.obstacle, cloud);
+    }
+    public void addFireUnit(float x, float y) {
+        FireUnit fireUnit = new FireUnit(x, y);
+        fireUnits.add(fireUnit);
+        add(Layer.obstacle, fireUnit);
     }
 
-    public Cloud getCloud() {
-        return cloud;
+    public void addScore(int amount) {
+        score.add(amount);
     }
 
     @Override
@@ -114,6 +119,6 @@ public class MainScene extends Scene {
                 return true;
             }
         }*/
-        return fireUnit.onTouch(event);
+        return fireUnits.get(0).onTouch(event);
     }
 }
