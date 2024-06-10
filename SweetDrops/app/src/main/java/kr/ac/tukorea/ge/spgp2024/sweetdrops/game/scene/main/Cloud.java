@@ -63,7 +63,7 @@ public class Cloud extends Sprite {
         rollTime += elapsedSeconds * 0.5f;
         if (rollTime > MAX_ROLL_TIME)
             rollTime -= MAX_ROLL_TIME;
-        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 3); // 6개의 프레임
+        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 7); // 7개의 프레임
         srcRect = rects[rollIndex];
     }
 

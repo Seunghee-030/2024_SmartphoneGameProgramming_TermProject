@@ -18,6 +18,7 @@ public class MainScene extends Scene {
     private final List<Cloud> clouds;
     private final List<Spike> spikes; // Use a list to store multiple spikes
     private Score score; // package private
+    private boolean isPaused = false;
 
     public int getScore() {
         return score.getScore();
