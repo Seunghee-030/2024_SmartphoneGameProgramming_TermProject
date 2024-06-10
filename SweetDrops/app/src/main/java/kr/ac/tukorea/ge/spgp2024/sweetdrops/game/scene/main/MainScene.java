@@ -15,6 +15,7 @@ public class MainScene extends Scene {
     private final Monster monster;
     private final List<Bouncer> bouncers;
     private final FireUnit fireUnit;
+    private final Cloud cloud;
     private final List<Spike> spikes; // Use a list to store multiple spikes
     private Score score; // package private
 
@@ -43,7 +44,7 @@ public class MainScene extends Scene {
     }
 
     public enum Layer {
-        bg, obstacle, enemy, bullet, player, ui, controller, item, COUNT
+        bg, obstacle, enemy, bullet, player, ui, controller, item, wind, COUNT
     }
 
     public MainScene() {
@@ -58,10 +59,12 @@ public class MainScene extends Scene {
         this.monster = new Monster();
         this.bouncers = new ArrayList<>();
         this.fireUnit = new FireUnit();
+        this.cloud = new Cloud();
         this.spikes = new ArrayList<>(); // Initialize the list
 
         add(Layer.player, monster);
         add(Layer.obstacle, fireUnit);
+        add(Layer.obstacle, cloud);
 
         // Add bouncers at desired positions
         addBouncer(Metrics.width / 4, Metrics.height - 5f);
@@ -95,6 +98,10 @@ public class MainScene extends Scene {
         score.add(amount);
     }
 
+    public Cloud getCloud() {
+        return cloud;
+    }
+
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
@@ -102,11 +109,11 @@ public class MainScene extends Scene {
 
     @Override
     public boolean onTouch(MotionEvent event) {
-        for (Bouncer bouncer : bouncers) {
+       /* for (Bouncer bouncer : bouncers) {
             if (bouncer.onTouch(event)) {
                 return true;
             }
-        }
+        }*/
         return fireUnit.onTouch(event);
     }
 }

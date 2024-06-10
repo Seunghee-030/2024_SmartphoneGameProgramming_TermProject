@@ -6,28 +6,36 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2024.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
-import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 
-public class ClowdUnit extends Sprite {
-    private static final String TAG = Monster.class.getSimpleName();
-    private static final float PLANE_WIDTH = 1.75f;
-    private static final float PLANE_HEIGHT = PLANE_WIDTH * 80 / 72;
-    private static final float FIREUNIT_X_OFFSET = 1.2f;
+public class Cloud extends Sprite {
+    private static final String TAG = Cloud.class.getSimpleName();
+    private static final float CLOUD_WIDTH = 2f;
+    private static final float CLOUD_HEIGHT = CLOUD_WIDTH * 0.7f;
+    private static final float CLOUD_Y_OFFSET = 1.2f;
     private static final float TARGET_RADIUS = 0.5f;
     private static final float SPEED = 5.0f;
     private static final float FIRE_INTERVAL = 1.3f;
-    private static final float BULLET_OFFSET = 0.8f;
+    private static final float WIND_OFFSET = 0.8f;
 
     protected RectF collisionRect = new RectF();
     private static final float MAX_ROLL_TIME = 0.4f;
     private float rollTime;
-    private static final Rect[] rects = new Rect[] {
-            new Rect(0, 0, 480, 315)                    // 0
+    private static final int imageSizeX = 141;
+    private static final int imageSizeY = 110;
 
+    private static final Rect[] rects = new Rect[] {
+            new Rect(1, 0, imageSizeX, imageSizeY),
+            new Rect(1+imageSizeX, 0, imageSizeX*2, imageSizeY),
+            new Rect(1+imageSizeX*2, 0, imageSizeX*3, imageSizeY),
+            new Rect(1+ imageSizeX*3, 0, imageSizeX*4, imageSizeY),
+            new Rect(1+imageSizeX*4, 0, imageSizeX*5, imageSizeY),
+            new Rect(1+imageSizeX*5, 0, imageSizeX*6, imageSizeY),
+            new Rect(1+imageSizeX*6, 0, imageSizeX*7, imageSizeY),
     };
 
     private float targetX;
@@ -36,9 +44,9 @@ public class ClowdUnit extends Sprite {
     private Bitmap targetBmp;
     private float fireCoolTime = FIRE_INTERVAL;
 
-    public ClowdUnit() {
-        super(R.mipmap.obj_cloud);
-        setPosition(FIREUNIT_X_OFFSET, Metrics.height, PLANE_WIDTH, PLANE_HEIGHT);
+    public Cloud() {
+        super(R.mipmap.cloud_anim);
+        setPosition(CLOUD_WIDTH/2, 0 + CLOUD_Y_OFFSET, CLOUD_WIDTH, CLOUD_HEIGHT);
         setTargetY(posY);
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];
@@ -47,45 +55,33 @@ public class ClowdUnit extends Sprite {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
-        float adjy = posY;
-        super.update(elapsedSeconds);
-
-        fireBullet(elapsedSeconds);
+        fireWind(elapsedSeconds*0.3f);
         updateRoll(elapsedSeconds);
     }
 
     private void updateRoll(float elapsedSeconds) {
-        /*rollTime += elapsedSeconds * 0.3f;
+        rollTime += elapsedSeconds * 0.5f;
         if (rollTime > MAX_ROLL_TIME)
             rollTime -= MAX_ROLL_TIME;
-        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 4); // 6개의 프레임
-        srcRect = rects[rollIndex];*/
-        srcRect = rects[0];
+        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 3); // 6개의 프레임
+        srcRect = rects[rollIndex];
     }
 
-    private void fireBullet(float elapsedSeconds) {
+    private void fireWind(float elapsedSeconds) {
         MainScene scene = (MainScene) Scene.top();
         if (scene == null) return;
         fireCoolTime -= elapsedSeconds;
         if (fireCoolTime > 0) return;
 
         fireCoolTime = FIRE_INTERVAL;
-        int score = scene.getScore();
-        int power = 10;
-
-        Wind wind = Wind.get(posX + BULLET_OFFSET, posY, power);
-        scene.add(MainScene.Layer.bullet, wind);
+        int power = 3;
+        Wind wind = Wind.get(posX + WIND_OFFSET, posY, power);
+        scene.add(MainScene.Layer.wind, wind);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        if (dx != 0) {
-            canvas.drawBitmap(targetBmp, null, targetRect, null);
-        }
-        canvas.save();
-        canvas.rotate(90, posX, posY); // 90도 회전
         super.draw(canvas);
-        canvas.restore();
     }
 
     private void setTargetY(float y) {
@@ -103,10 +99,9 @@ public class ClowdUnit extends Sprite {
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
                 float clickedY = pts[1];
 
-                //사각형 영역 내에서 클릭 여부 확인
                 if (dstRect.contains(pts[0], clickedY)) {
                     setTargetY(clickedY);
-                    setPosition(posX, clickedY, PLANE_WIDTH, PLANE_HEIGHT);
+                    setPosition(posX, clickedY, CLOUD_WIDTH, CLOUD_HEIGHT);
                     return true;
                 }
         }

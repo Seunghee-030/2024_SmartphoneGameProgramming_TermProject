@@ -13,7 +13,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     private static final float BULLET_WIDTH = 0.68f;
     private static final float BULLET_HEIGHT = BULLET_WIDTH * 28 / 40;
-    private static final float SPEED = 20.0f;
+    private static final float SPEED = 10.0f;
     private int power;
 
     private Bullet(float x, float y, int power) {
@@ -38,7 +38,7 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
         if (dstRect.bottom < 0 || dstRect.top > Metrics.height) {
             Scene.top().remove(MainScene.Layer.bullet, this);
             }
-        if(dstRect.left<0 || dstRect.right > Metrics.width){
+        if(dstRect.right<0 || dstRect.left > Metrics.width){
             Scene.top().remove(MainScene.Layer.bullet, this);
         }
 
