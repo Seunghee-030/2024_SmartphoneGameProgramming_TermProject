@@ -43,7 +43,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
         this.level = level;
         this.life = this.maxLife = (level + 1) * 10;
         setAnimationResource(resIds[level], ANIM_FPS);
-        position = new Vector2(Metrics.width / 2, RADIUS); // 화면 가운데 맨 위에서 생성
+        position = new Vector2(Metrics.width / 2 + Metrics.width/4, RADIUS); // 화면 가운데 맨 위에서 생성
         vel = new Vector2(0.0f, 0.0f); // 초기 속도
         isBroken = false;
     }
@@ -93,8 +93,8 @@ public class Item extends AnimSprite implements IBoxCollidable {
                     vel.x = -vel.x * BOUNCE_FACTOR;
                 }
             }
-
-            Spike spike = scene.getSpike(); // 스파이크 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getSpike() 메소드가 필요)
+            //for(int i=0; i<4; i++){
+            Spike spike = scene.getSpike(1); // 스파이크 인스턴스 가져오기 (이를 위해 MainScene 클래스에 getSpike() 메소드가 필요)
             if (spike != null && isCollidingWith(spike)) {
                 // 스파이크와 충돌 시 애니메이션 변경
                 brokenPosY = position.y;
@@ -103,6 +103,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 isBroken = true;
                 vel.y = -vel.y * BOUNCE_FACTOR/3;
             }
+        //}
 
 
 
