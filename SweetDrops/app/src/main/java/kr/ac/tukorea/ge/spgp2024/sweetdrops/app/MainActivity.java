@@ -25,15 +25,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        createAnimator();
-
-        // 잠시 플레이 씬부터 실행되도록 추가
-        //startActivity(new Intent(MainActivity.this, MainActivity.class));
-
         // ImageButton 클릭 리스너 설정
         ImageButton startGameButton = binding.getRoot().findViewById(R.id.imageButtonGameStart);
         startGameButton.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, SweetDropsActivity.class));
+            Intent intent = new Intent(MainActivity.this, LevelSelectActivity.class);
+            startActivity(intent);
         });
     }
 

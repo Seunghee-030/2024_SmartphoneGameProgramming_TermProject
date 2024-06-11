@@ -40,7 +40,10 @@ public class MainScene extends Scene {
         bg, obstacle, enemy, bullet, player, ui, controller, item, wind, COUNT
     }
 
-    public MainScene() {
+    private int level;
+
+    public MainScene(int level) {
+        this.level = level;
         initLayers(Layer.COUNT);
 
         add(Layer.controller, new EnemyGenerator());
