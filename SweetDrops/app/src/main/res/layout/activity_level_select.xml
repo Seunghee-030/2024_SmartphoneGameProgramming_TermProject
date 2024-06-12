@@ -67,7 +67,7 @@
         <!-- Add more ImageButtons for other rows/columns as needed -->
 
         <ImageButton
-            android:id="@+id/buttonLevel14"
+            android:id="@+id/buttonLevel4"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_row="3"

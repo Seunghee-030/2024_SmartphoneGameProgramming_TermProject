@@ -11,6 +11,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
 import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
+
 import java.util.List;
 
 public class Item extends AnimSprite implements IBoxCollidable {
@@ -80,19 +81,20 @@ public class Item extends AnimSprite implements IBoxCollidable {
             }
             List<Bouncer> bouncers = scene.getBouncers();
             for (Bouncer bouncer : bouncers) {
-            if (bouncer != null && isCollidingWith(bouncer)) {
-                //System.out.println("충돌! - Item, Bouncer");
-                float bouncerLeft = bouncer.getCollisionRect().left;
-                float bouncerRight = bouncer.getCollisionRect().right;
-                float bouncerTop = bouncer.getCollisionRect().top;
-                float bouncerBottom = bouncer.getCollisionRect().bottom;
+                if (bouncer != null && isCollidingWith(bouncer)) {
+                    //System.out.println("충돌! - Item, Bouncer");
+                    float bouncerLeft = bouncer.getCollisionRect().left;
+                    float bouncerRight = bouncer.getCollisionRect().right;
+                    float bouncerTop = bouncer.getCollisionRect().top;
+                    float bouncerBottom = bouncer.getCollisionRect().bottom;
 
-                // 바운서 위쪽에 닿았을 때 튕김 처리
-                if (position.y > bouncerTop + 0.2f - RADIUS) {
-                    position.y = bouncerTop + 0.2f - RADIUS;
-                    vel.y = -vel.y * BOUNCE_FACTOR;
-                    vel.x = -vel.x * BOUNCE_FACTOR;
-                }}
+                    // 바운서 위쪽에 닿았을 때 튕김 처리
+                    if (position.y > bouncerTop + 0.2f - RADIUS) {
+                        position.y = bouncerTop + 0.2f - RADIUS;
+                        vel.y = -vel.y * BOUNCE_FACTOR;
+                        vel.x = -vel.x * BOUNCE_FACTOR;
+                    }
+                }
             }
 
             // Check collision with all spikes
@@ -101,23 +103,23 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 if (isCollidingWith(spike)) {
                     // 스파이크와 충돌 시 애니메이션 변경
                     brokenPosY = position.y;
-                    setAnimationResource(resIds[1], ANIM_FPS/2, 10); // 충돌 애니메이션 리소스로 변경
+                    setAnimationResource(resIds[1], ANIM_FPS / 2, 10); // 충돌 애니메이션 리소스로 변경
                     setScale(1.4f);
                     isBroken = true;
-                    vel.y = -vel.y * BOUNCE_FACTOR/3;
+                    vel.y = -vel.y * BOUNCE_FACTOR / 3;
                     break;
                 }
             }
         }
 
-        if(isBroken){
-            if(position.y > Metrics.height + RADIUS) {
+        if (isBroken) {
+            if (position.y > Metrics.height + RADIUS) {
                 scene.remove(item, this);
                 scene.addScore(-100000);
             }
             // 시간을 두고 삭제하지 않고 충돌후 일정 아래로 떨어지면 사라지도록
-            if(position.y > brokenPosY+3.f){
-                scene.remove(item,this);
+            if (position.y > brokenPosY + 3.f) {
+                scene.remove(item, this);
                 scene.addScore(-100000);
             }
         }
@@ -126,7 +128,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
     }
 
     private void setScale(float v) {
-        RADIUS = RADIUS*v;
+        RADIUS = RADIUS * v;
     }
 
     private void BounceBall(float targetUpper, float targetBottom, float targetLeft, float targetRight) {

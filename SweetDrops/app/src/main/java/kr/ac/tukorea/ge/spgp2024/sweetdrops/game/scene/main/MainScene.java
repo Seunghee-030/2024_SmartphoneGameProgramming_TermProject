@@ -1,9 +1,7 @@
 package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
-import android.view.MotionEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.VertScrollBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
@@ -11,14 +9,13 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class MainScene extends Scene {
-    private static final String TAG = MainScene.class.getSimpleName();
     private final Monster monster;
     private final List<Bouncer> bouncers;
     private final List<FireUnit> fireUnits;
     private final List<Cloud> clouds;
-    private final List<Spike> spikes; // Use a list to store multiple spikes
-    private Score score; // package private
-    private boolean isPaused = false;
+    private final List<Spike> spikes;
+    private final Score score;
+    private final int level;
 
     public int getScore() {
         return score.getScore();
@@ -40,8 +37,6 @@ public class MainScene extends Scene {
         bg, obstacle, enemy, bullet, player, ui, controller, item, wind, COUNT
     }
 
-    private int level;
-
     public MainScene(int level) {
         this.level = level;
         initLayers(Layer.COUNT);
@@ -56,32 +51,30 @@ public class MainScene extends Scene {
         this.bouncers = new ArrayList<>();
         this.fireUnits = new ArrayList<>();
         this.clouds = new ArrayList<>();
-        this.spikes = new ArrayList<>(); // Initialize the list
+        this.spikes = new ArrayList<>();
 
         add(Layer.player, monster);
 
-        // Add FireUnits
-        //addFireUnit(Metrics.width / 4, Metrics.height - 5f);
-        //addFireUnit(Metrics.width / 3, Metrics.height - 5f);
-
-        // Add Clouds
-        //addCloud(Metrics.width / 2, Metrics.height - 5f);
-        addCloud(Metrics.width / 5, Metrics.height - 5f);
-
-        // Add bouncers
-        //addBouncer(Metrics.width / 4, Metrics.height - 5f);
-        //addBouncer(Metrics.width / 2, Metrics.height - 7f);
-        //addBouncer(Metrics.width * 3 / 4, Metrics.height - 6f);
-
-        // Add spikes
-        //addSpike(Metrics.width / 4, Metrics.height / 2);
-        //addSpike(Metrics.width / 2, Metrics.height / 4);
-        //addSpike(Metrics.width * 3 / 4, Metrics.height / 2);
+        setupLevel(level);
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(100000);
 
         add(Layer.ui, score);
+    }
+
+    private void setupLevel(int level) {
+        switch (level) {
+            case 1:
+                addCloud(Metrics.width / 5, Metrics.height - 5f);
+                break;
+            case 2:
+                addCloud(Metrics.width / 4, Metrics.height - 5f);
+                addBouncer(Metrics.width / 4, Metrics.height - 5f);
+                break;
+            // Add cases for additional levels
+            // case 3, case 4, etc.
+        }
     }
 
     public void addBouncer(float x, float y) {
@@ -101,6 +94,7 @@ public class MainScene extends Scene {
         clouds.add(cloud);
         add(Layer.obstacle, cloud);
     }
+
     public void addFireUnit(float x, float y) {
         FireUnit fireUnit = new FireUnit(x, y);
         fireUnits.add(fireUnit);
@@ -115,14 +109,4 @@ public class MainScene extends Scene {
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
     }
-
-/*    @Override
-    public boolean onTouch(MotionEvent event) {
-       *//* for (Bouncer bouncer : bouncers) {
-            if (bouncer.onTouch(event)) {
-                return true;
-            }
-        }*//*
-        return fireUnits.get(0).onTouch(event);
-    }*/
 }

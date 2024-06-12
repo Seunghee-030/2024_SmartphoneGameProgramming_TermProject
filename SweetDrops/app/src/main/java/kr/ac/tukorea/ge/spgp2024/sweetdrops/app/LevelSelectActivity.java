@@ -2,9 +2,7 @@ package kr.ac.tukorea.ge.spgp2024.sweetdrops.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 
@@ -14,14 +12,18 @@ public class LevelSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_select);
 
-        // Example of setting up level buttons
-        ImageButton level1Button = findViewById(R.id.buttonLevel1);
-        level1Button.setOnClickListener(v -> startGameWithLevel(1));
+        // Setup level buttons
+        setupLevelButton(R.id.buttonLevel1, 1);
+        setupLevelButton(R.id.buttonLevel2, 2);
+        setupLevelButton(R.id.buttonLevel3, 3);
+        setupLevelButton(R.id.buttonLevel4, 4);
+        setupLevelButton(R.id.buttonLevel5, 5);
+        setupLevelButton(R.id.buttonLevel6, 6);
+    }
 
-        ImageButton level2Button = findViewById(R.id.buttonLevel2);
-        level2Button.setOnClickListener(v -> startGameWithLevel(2));
-
-        // Add more buttons for additional levels as needed
+    private void setupLevelButton(int buttonId, int level) {
+        ImageButton button = findViewById(buttonId);
+        button.setOnClickListener(v -> startGameWithLevel(level));
     }
 
     private void startGameWithLevel(int level) {
