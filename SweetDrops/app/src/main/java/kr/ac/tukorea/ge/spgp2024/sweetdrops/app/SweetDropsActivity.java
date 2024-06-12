@@ -17,13 +17,24 @@ public class SweetDropsActivity extends GameActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initialize the GameView
+        gameView = new GameView(this);
+        setContentView(gameView);
 
-        // Get the selected level from the intent
-        int level = getIntent().getIntExtra("LEVEL", 1);
+        // Create a FrameLayout to overlay the StartOverlayView
+        rootLayout = new FrameLayout(this);
+        addContentView(rootLayout, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
 
-        // Initialize the main scene with the selected level
-        MainScene mainScene = new MainScene(level);
-        mainScene.push();
+        // Initialize and add the StartOverlayView
+        startOverlayView = new StartOverlayView(this);
+        startOverlayView.setOnStartListener(() -> {
+            rootLayout.removeView(startOverlayView);
+            startGame();
+        });
+
+        rootLayout.addView(startOverlayView);
     }
 
     private void startGame() {

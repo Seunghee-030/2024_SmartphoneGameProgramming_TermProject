@@ -28,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
         // ImageButton 클릭 리스너 설정
         ImageButton startGameButton = binding.getRoot().findViewById(R.id.imageButtonGameStart);
         startGameButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, LevelSelectActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(MainActivity.this, SweetDropsActivity.class));
         });
     }
 

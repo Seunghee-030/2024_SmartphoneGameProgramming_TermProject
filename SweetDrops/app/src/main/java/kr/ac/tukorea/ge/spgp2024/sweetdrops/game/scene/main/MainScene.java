@@ -61,22 +61,22 @@ public class MainScene extends Scene {
         add(Layer.player, monster);
 
         // Add FireUnits
-        addFireUnit(Metrics.width / 4, Metrics.height - 5f);
-        addFireUnit(Metrics.width / 3, Metrics.height - 5f);
+        //addFireUnit(Metrics.width / 4, Metrics.height - 5f);
+        //addFireUnit(Metrics.width / 3, Metrics.height - 5f);
 
         // Add Clouds
-        addCloud(Metrics.width / 2, Metrics.height - 5f);
-        addCloud(Metrics.width / 1, Metrics.height - 5f);
+        //addCloud(Metrics.width / 2, Metrics.height - 5f);
+        addCloud(Metrics.width / 5, Metrics.height - 5f);
 
         // Add bouncers
-        addBouncer(Metrics.width / 4, Metrics.height - 5f);
-        addBouncer(Metrics.width / 2, Metrics.height - 7f);
-        addBouncer(Metrics.width * 3 / 4, Metrics.height - 6f);
+        //addBouncer(Metrics.width / 4, Metrics.height - 5f);
+        //addBouncer(Metrics.width / 2, Metrics.height - 7f);
+        //addBouncer(Metrics.width * 3 / 4, Metrics.height - 6f);
 
         // Add spikes
-        addSpike(Metrics.width / 4, Metrics.height / 2);
-        addSpike(Metrics.width / 2, Metrics.height / 4);
-        addSpike(Metrics.width * 3 / 4, Metrics.height / 2);
+        //addSpike(Metrics.width / 4, Metrics.height / 2);
+        //addSpike(Metrics.width / 2, Metrics.height / 4);
+        //addSpike(Metrics.width * 3 / 4, Metrics.height / 2);
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(100000);
@@ -116,13 +116,13 @@ public class MainScene extends Scene {
         super.update(elapsedSeconds);
     }
 
-    @Override
+/*    @Override
     public boolean onTouch(MotionEvent event) {
-       /* for (Bouncer bouncer : bouncers) {
+       *//* for (Bouncer bouncer : bouncers) {
             if (bouncer.onTouch(event)) {
                 return true;
             }
-        }*/
+        }*//*
         return fireUnits.get(0).onTouch(event);
-    }
+    }*/
 }

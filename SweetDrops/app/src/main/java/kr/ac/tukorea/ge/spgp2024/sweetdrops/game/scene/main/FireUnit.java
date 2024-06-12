@@ -62,7 +62,7 @@ public class FireUnit extends Sprite {
         rollTime += elapsedSeconds * 0.3f;
         if (rollTime > MAX_ROLL_TIME)
             rollTime -= MAX_ROLL_TIME;
-        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 4); // 6개의 프레임
+        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 4); // 4개의 프레임
         srcRect = rects[rollIndex];
     }
 
