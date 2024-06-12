@@ -4,6 +4,8 @@ import static kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main.MainScene.Lay
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
+
+import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.AnimSprite;
@@ -12,10 +14,11 @@ import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Item extends AnimSprite implements IBoxCollidable {
-    private static final float GRAVITY = 9.8f; // 중력 가속도
+    private static final float GRAVITY = 0.8f; // 중력 가속도
     private float SIDE_BOUNCE_FACTOR = 0.0f;
     private static final float BOUNCE_FACTOR = 0.8f; // 튕김 계수 (에너지 손실을 고려한 반발력)
     private float RADIUS = 0.6f;
@@ -110,6 +113,14 @@ public class Item extends AnimSprite implements IBoxCollidable {
                     break;
                 }
             }
+
+            // Check collision with all winds
+            ArrayList<IGameObject> winds = scene.objectsAt(MainScene.Layer.wind);
+            for (IGameObject wind : winds) {
+                if (isCollidingWith((Wind) wind)) {
+                    applyWindForce((Wind) wind);
+                }
+            }
         }
 
         if (isBroken) {
@@ -187,6 +198,18 @@ public class Item extends AnimSprite implements IBoxCollidable {
         RectF itemRect = getCollisionRect();
         RectF spikeRect = spike.getCollisionRect();
         return RectF.intersects(itemRect, spikeRect);
+    }
+
+    public boolean isCollidingWith(Wind wind) {
+        RectF itemRect = getCollisionRect();
+        RectF windRect = wind.getCollisionRect();
+        return RectF.intersects(itemRect, windRect);
+    }
+
+    private void applyWindForce(Wind wind) {
+        // Add the wind's power to the item's velocity
+        Vector2 windForce = new Vector2(wind.getPower()/4f, 0);
+        vel = vel.add(windForce);
     }
 
     @Override
