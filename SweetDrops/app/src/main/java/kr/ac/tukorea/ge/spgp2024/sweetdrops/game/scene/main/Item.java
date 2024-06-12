@@ -69,7 +69,6 @@ public class Item extends AnimSprite implements IBoxCollidable {
 
         vel = vel.add(new Vector2(SIDE_BOUNCE_FACTOR, GRAVITY).multiply(elapsedSeconds));
         position = position.add(vel.multiply(elapsedSeconds));
-        System.out.println("velocity.y : " + vel.y);
 
         MainScene scene = (MainScene) Scene.top();
         if (scene != null && !isBroken) {
