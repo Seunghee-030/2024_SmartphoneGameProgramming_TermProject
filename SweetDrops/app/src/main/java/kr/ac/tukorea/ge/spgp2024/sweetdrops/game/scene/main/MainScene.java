@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.view.MotionEvent;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.VertScrollBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
@@ -67,6 +68,8 @@ public class MainScene extends Scene {
         switch (level) {
             case 1:
                 addCloud(Metrics.width / 5, Metrics.height - 5f);
+                addSpike(10,10);
+                addBouncer(Metrics.width / 4, Metrics.height - 5f);
                 break;
             case 2:
                 addCloud(Metrics.width / 4, Metrics.height - 5f);
@@ -108,5 +111,42 @@ public class MainScene extends Scene {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
+    }
+
+    @Override
+    public boolean onTouch(MotionEvent event) {
+        float[] pts = Metrics.fromScreen(event.getX(), event.getY());
+        //System.out.println("Click!");
+        // Check for Bouncer touch
+        for (Bouncer bouncer : bouncers) {
+            if (bouncer.getCollisionRect().contains(pts[0], pts[1])) {
+                if (bouncer.onTouch(event)) {
+                    System.out.println("Bouncer Click!");
+                    return true;
+                }
+            }
+        }
+
+        // Check for FireUnit touch
+        for (FireUnit fireUnit : fireUnits) {
+            if (fireUnit.getCollisionRect().contains(pts[0], pts[1])) {
+                if (fireUnit.onTouch(event)) {
+                    System.out.println("FireUnit Click!");
+                    return true;
+                }
+            }
+        }
+
+        // Check for Cloud touch
+        for (Cloud cloud : clouds) {
+            if (cloud.getCollisionRect().contains(pts[0], pts[1])) {
+                if (cloud.onTouch(event)) {
+                    System.out.println("Cloud Click!");
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

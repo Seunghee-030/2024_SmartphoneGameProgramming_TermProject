@@ -13,12 +13,9 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Cloud extends Sprite {
-    private static final String TAG = Cloud.class.getSimpleName();
     private static final float CLOUD_WIDTH = 2f;
     private static final float CLOUD_HEIGHT = CLOUD_WIDTH * 0.7f;
-    private static final float CLOUD_Y_OFFSET = 1.2f;
     private static final float TARGET_RADIUS = 0.5f;
-    private static final float SPEED = 5.0f;
     private static final float FIRE_INTERVAL = 1.3f;
     private static final float WIND_OFFSET = 0.8f;
 
@@ -55,7 +52,7 @@ public class Cloud extends Sprite {
     @Override
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
-        fireWind(elapsedSeconds*0.3f);
+        fireWind(elapsedSeconds * 0.3f);
         updateRoll(elapsedSeconds);
     }
 
@@ -63,7 +60,7 @@ public class Cloud extends Sprite {
         rollTime += elapsedSeconds * 0.5f;
         if (rollTime > MAX_ROLL_TIME)
             rollTime -= MAX_ROLL_TIME;
-        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 7); // 7개의 프레임
+        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 7);
         srcRect = rects[rollIndex];
     }
 
