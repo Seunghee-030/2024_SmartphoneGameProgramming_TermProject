@@ -86,9 +86,12 @@ public class MainScene extends Scene {
         switch (level) {
             case 1:
                 addSpike(Metrics.width/6,Metrics.height- 0.2f);
-                addSpike(Metrics.width*5/6,Metrics.height- 0.2f);
+                addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
 
-                addCloud(Metrics.width/5, 0f);
+                addSpike(Metrics.width/6,1f);
+                addSpike(Metrics.width*5/6+ 1f,1f);
+
+                addCloud(Metrics.width/6, 3f);
 
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
                 addBouncer(Metrics.width / 2, 5f);

@@ -26,13 +26,13 @@ public class Cloud extends Sprite {
     private static final int imageSizeY = 110;
 
     private static final Rect[] rects = new Rect[] {
-            //new Rect(1, 0, imageSizeX, imageSizeY),
-            //new Rect(1+imageSizeX, 0, imageSizeX*2, imageSizeY),
-            //new Rect(1+imageSizeX*2, 0, imageSizeX*3+1, imageSizeY),
-            //new Rect(2+ imageSizeX*3, 0, imageSizeX*4+1, imageSizeY),
-            new Rect(3+imageSizeX*4, 0, imageSizeX*5, imageSizeY),
-            //new Rect(1+imageSizeX*5, 0, imageSizeX*6, imageSizeY),
-            //new Rect(1+imageSizeX*6, 0, imageSizeX*7, imageSizeY),
+            new Rect(1, 0, imageSizeX+1, imageSizeY),
+            new Rect(2+imageSizeX, 0, imageSizeX*2+2, imageSizeY),
+            new Rect(3+imageSizeX*2, 0, imageSizeX*3+3, imageSizeY),
+            new Rect(3+ imageSizeX*3, 0, imageSizeX*4+3, imageSizeY),
+            new Rect(4+imageSizeX*4, 0, imageSizeX*5+4, imageSizeY),
+            new Rect(5+imageSizeX*5, 0, imageSizeX*6+5, imageSizeY),
+            new Rect(6+imageSizeX*6, 0, imageSizeX*7+6, imageSizeY),
     };
 
     private float targetX;
@@ -53,7 +53,7 @@ public class Cloud extends Sprite {
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
         fireWind(elapsedSeconds * 0.3f);
-        //updateRoll(elapsedSeconds);
+        updateRoll(elapsedSeconds/2);
     }
 
     private void updateRoll(float elapsedSeconds) {

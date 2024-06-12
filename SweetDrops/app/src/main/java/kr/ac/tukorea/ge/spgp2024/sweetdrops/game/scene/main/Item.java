@@ -34,6 +34,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
     private Vector2 position;
     private Vector2 vel;
     private boolean isBroken;
+    private boolean gameClear;
     float brokenPosY;
 
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
@@ -69,7 +70,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
         vel = vel.add(new Vector2(SIDE_BOUNCE_FACTOR, GRAVITY).multiply(elapsedSeconds));
         position = position.add(vel.multiply(elapsedSeconds));
         System.out.println("velocity.y : " + vel.y);
-        // 아이템과 몬스터의 충돌 감지
+
         MainScene scene = (MainScene) Scene.top();
         if (scene != null && !isBroken) {
 
@@ -80,6 +81,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
             if (monster != null && isCollidingWith(monster)) {
                 //System.out.println("충돌! - 아이템, 몬스터");
                 scene.remove(item, this);
+                gameClear = true;
                 scene.addScore(100000);
             }
             List<Bouncer> bouncers = scene.getBouncers();
@@ -117,13 +119,13 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 }
             }
 
-            // Check collision with all spikes
+            // spikes
             List<Spike> spikes = scene.getSpikes();
             for (Spike spike : spikes) {
                 if (isCollidingWith(spike)) {
                     // 스파이크와 충돌 시 애니메이션 변경
                     brokenPosY = position.y;
-                    setAnimationResource(resIds[1], ANIM_FPS / 2, 10); // 충돌 애니메이션 리소스로 변경
+                    setAnimationResource(resIds[1], ANIM_FPS, 10); // 충돌 애니메이션 리소스로 변경
                     setScale(1.4f);
                     isBroken = true;
                     vel.y = -vel.y * BOUNCE_FACTOR / 3;
@@ -131,7 +133,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 }
             }
 
-            // Check collision with all winds
+            // winds
             ArrayList<IGameObject> winds = scene.objectsAt(MainScene.Layer.wind);
             for (IGameObject wind : winds) {
                 if (isCollidingWith((Wind) wind)) {
