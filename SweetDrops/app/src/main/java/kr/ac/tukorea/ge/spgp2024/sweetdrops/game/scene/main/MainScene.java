@@ -44,9 +44,27 @@ public class MainScene extends Scene {
 
         add(Layer.controller, new EnemyGenerator());
         add(Layer.controller, new CollisionChecker(this));
+        switch (level) {
+            case 1:
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_1, 0f));
+                break;
+            case 2:
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_2, 0f));
+                break;
+            case 3:
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_3, 0.3f));
+                break;
+            case 4:
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_4, 0.5f));
+                break;
+            case 5:
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_5, 0f));
+                break;
+            case 6:
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_6, 0f));
+                break;
 
-        add(Layer.bg, new VertScrollBackground(R.mipmap.background, 0.001f));
-
+        }
         add(Layer.item, Item.get(0, 0));
         this.monster = new Monster();
         this.bouncers = new ArrayList<>();
@@ -67,9 +85,13 @@ public class MainScene extends Scene {
     private void setupLevel(int level) {
         switch (level) {
             case 1:
-                addCloud(Metrics.width / 5, Metrics.height - 5f);
-                addSpike(10,10);
-                addBouncer(Metrics.width / 4, Metrics.height - 5f);
+                addSpike(Metrics.width/6,Metrics.height- 0.2f);
+                addSpike(Metrics.width*5/6,Metrics.height- 0.2f);
+
+                addCloud(Metrics.width/5, 0f);
+
+                addBouncer(Metrics.width / 2, Metrics.height - 5f);
+                addBouncer(Metrics.width / 2, 5f);
                 break;
             case 2:
                 addCloud(Metrics.width / 4, Metrics.height - 5f);

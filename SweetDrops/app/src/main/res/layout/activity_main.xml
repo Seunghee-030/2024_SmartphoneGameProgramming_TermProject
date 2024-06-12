@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitXY"
-            android:src="@mipmap/bgr_01_cover" />
+            android:src="@mipmap/bgr_1_cover" />
 
         <!-- 오른쪽 박스 이미지 -->
 
@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@mipmap/bgr_01_cover"
+            android:src="@mipmap/bgr_1_cover"
             android:scaleType="fitXY"
             android:rotation="180"/>
 
@@ -57,34 +57,34 @@
             android:layout_marginTop="20dp" />
 
         <ImageButton
-            android:id="@+id/imageButtonGameStart"
+            android:id="@+id/GameMenuStart"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:background="@drawable/menu_button"
             android:scaleType="fitXY"
-            app:srcCompat="@mipmap/menu_button_start" />
+            app:srcCompat="@mipmap/button_level_select" />
 
         <ImageButton
-            android:id="@+id/imageButtonGameStart2"
+            android:id="@+id/GameFastStart"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/menu_button"
             android:scaleType="fitXY"
-            app:srcCompat="@mipmap/menu_button_start" />
+            app:srcCompat="@mipmap/button_fast_start" />
 
         <ImageButton
-            android:id="@+id/imageButtonGameStart3"
+            android:id="@+id/Option"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/menu_button"
             android:scaleType="fitXY"
-            app:srcCompat="@mipmap/menu_button_start" />
+            app:srcCompat="@mipmap/button_option" />
 
     </LinearLayout>
 

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Item extends AnimSprite implements IBoxCollidable {
-    private static final float GRAVITY = 0.8f; // 중력 가속도
+    private static final float GRAVITY = 9.8f; // 중력 가속도
     private float SIDE_BOUNCE_FACTOR = 0.0f;
     private static final float BOUNCE_FACTOR = 0.8f; // 튕김 계수 (에너지 손실을 고려한 반발력)
     private float RADIUS = 0.6f;
@@ -68,7 +68,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
 
         vel = vel.add(new Vector2(SIDE_BOUNCE_FACTOR, GRAVITY).multiply(elapsedSeconds));
         position = position.add(vel.multiply(elapsedSeconds));
-
+        System.out.println("velocity.y : " + vel.y);
         // 아이템과 몬스터의 충돌 감지
         MainScene scene = (MainScene) Scene.top();
         if (scene != null && !isBroken) {
@@ -92,9 +92,26 @@ public class Item extends AnimSprite implements IBoxCollidable {
                     float bouncerBottom = bouncer.getCollisionRect().bottom;
 
                     // 바운서 위쪽에 닿았을 때 튕김 처리
-                    if (position.y > bouncerTop + 0.2f - RADIUS) {
-                        position.y = bouncerTop + 0.2f - RADIUS;
+                    if (position.y + RADIUS > bouncerTop && vel.y > 0) {
+                        position.y = bouncerTop - RADIUS;
                         vel.y = -vel.y * BOUNCE_FACTOR;
+                    }
+
+                    // 바운서 아래쪽에 닿았을 때 튕김 처리
+                    else if (position.y - RADIUS < bouncerBottom && vel.y < 0) {
+                        position.y = bouncerBottom + RADIUS;
+                        vel.y = -vel.y * BOUNCE_FACTOR;
+                    }
+
+                    // 바운서 왼쪽에 닿았을 때 튕김 처리
+                    else if (position.x + RADIUS > bouncerLeft && vel.x > 0) {
+                        position.x = bouncerLeft - RADIUS;
+                        vel.x = -vel.x * BOUNCE_FACTOR;
+                    }
+
+                    // 바운서 오른쪽에 닿았을 때 튕김 처리
+                    else if (position.x - RADIUS < bouncerRight && vel.x < 0) {
+                        position.x = bouncerRight + RADIUS;
                         vel.x = -vel.x * BOUNCE_FACTOR;
                     }
                 }
@@ -129,7 +146,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 scene.addScore(-100000);
             }
             // 시간을 두고 삭제하지 않고 충돌후 일정 아래로 떨어지면 사라지도록
-            if (position.y > brokenPosY + 3.f) {
+            if (position.y > brokenPosY + 1.f) {
                 scene.remove(item, this);
                 scene.addScore(-100000);
             }

@@ -10,11 +10,10 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="191dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:src="@mipmap/sweet_drops_title_new"
-        />
+        android:layout_height="166dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="10dp"
+        android:src="@mipmap/sweet_drops_title_new" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -33,7 +32,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:padding="10dp"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/box_1"
             />
@@ -46,7 +45,7 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:padding="10dp"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/box_2"
             />
@@ -59,7 +58,7 @@
             android:layout_column="2"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:padding="10dp"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/box_3"
             />
@@ -74,7 +73,7 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:padding="10dp"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/box_4"
             />
@@ -87,9 +86,9 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:padding="10dp"
+            android:padding="5dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/box_6"
+            android:src="@mipmap/box_5"
             />
 
         <ImageButton
@@ -100,13 +99,59 @@
             android:layout_column="2"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:padding="10dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/box_6"
+            />
+
+        <ImageButton
+            android:id="@+id/buttonLevel7"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/box_7"
+            />
+
+        <ImageButton
+            android:id="@+id/buttonLevel8"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/box_8"
+            />
+
+        <ImageButton
+            android:id="@+id/buttonLevel9"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/box_9"
             />
 
         <!-- Add more buttons for additional levels as needed -->
 
     </GridLayout>
+    <!-- Transparent space below the GridLayout -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        />
+
 
 </LinearLayout>
