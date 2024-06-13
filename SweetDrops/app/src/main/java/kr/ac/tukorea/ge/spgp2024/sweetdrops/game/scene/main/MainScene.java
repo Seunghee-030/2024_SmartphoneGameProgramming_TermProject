@@ -1,22 +1,26 @@
 package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.view.MotionEvent;
-import android.util.Log;
-import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
-import kr.ac.tukorea.ge.spgp2024.framework.objects.VertScrollBackground;
+import kr.ac.tukorea.ge.spgp2024.framework.objects.Button;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
+import kr.ac.tukorea.ge.spgp2024.framework.objects.VertScrollBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
-import kr.ac.tukorea.ge.spgp2024.framework.objects.Button;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.app.LevelSelectActivity;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.app.MainActivity;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.app.SweetDropsActivity;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.paused.PausedScene;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainScene extends Scene {
-    private static final String TAG = MainScene.class.getSimpleName();
     private final Monster monster;
     private final List<Bouncer> bouncers;
     private final List<FireUnit> fireUnits;
     private final List<Cloud> clouds;
+    private final List<Button> buttons;
     private final List<Spike> spikes;
     private final Score score;
     private final int level;
@@ -66,53 +70,57 @@ public class MainScene extends Scene {
             case 6:
                 add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_6, 0f));
                 break;
-
         }
         add(Layer.item, Item.get(0, 0));
         this.monster = new Monster();
         this.bouncers = new ArrayList<>();
         this.fireUnits = new ArrayList<>();
         this.clouds = new ArrayList<>();
+        this.buttons = new ArrayList<>();
         this.spikes = new ArrayList<>();
 
-        add(Layer.touch, new Button(R.mipmap.btn_restart, 1f,0.8f, 1f, 1f, new Button.Callback() {
+        add(Layer.touch, new Button(R.mipmap.btn_pause, 1f,1f,1f,1f, new Button.Callback() {
             @Override
             public boolean onTouch(Button.Action action) {
-                Log.d(TAG, "Button:"+action);
+                if (action == Button.Action.pressed) {
+                    // 버튼 눌림 동작 처리
+                    System.out.println("click");
+                    return true;
+                } else if (action == Button.Action.released) {
+                    // 버튼 놓임 동작 처리
+                    // 일시정지 씬을 띄우는 버튼 논리 구현
+                    new PausedScene().push();
+                    return true;
+                }
                 return false;
-            }
-
-            @Override
-            public boolean onTouch() {
-                System.out.println("onTouch_restart");
-                return true;
             }
         }));
-        add(Layer.touch, new Button(R.mipmap.btn_pause, 2f,0.8f, 1f, 1f, new Button.Callback() {
+        add(Layer.touch, new Button(R.mipmap.btn_restart,2f,1f,1f,1f, new Button.Callback() {
             @Override
             public boolean onTouch(Button.Action action) {
-                Log.d(TAG, "Button:"+action);
+                if (action == Button.Action.pressed) {
+                    // 버튼 눌림 동작 처리
+                    return true;
+                } else if (action == Button.Action.released) {
+                    // 버튼 놓임 동작 처리
 
+                    return true;
+                }
                 return false;
-            }
-
-            @Override
-            public boolean onTouch() {
-                System.out.println("onTouch_pause");
-                return true;
             }
         }));
-        add(Layer.touch, new Button(R.mipmap.btn_menu, 3f,0.8f, 1.0f, 1.0f, new Button.Callback() {
+        add(Layer.touch, new Button(R.mipmap.btn_menu, 3f,1f,1f,1f, new Button.Callback() {
             @Override
             public boolean onTouch(Button.Action action) {
-                Log.d(TAG, "Button:"+action);
+                if (action == Button.Action.pressed) {
+                    // 버튼 눌림 동작 처리
+                    return true;
+                } else if (action == Button.Action.released) {
+                    // 버튼 놓임 동작 처리
+                    MainScene.pop();
+                    return true;
+                }
                 return false;
-            }
-
-            @Override
-            public boolean onTouch() {
-                System.out.println("onTouch_menu");
-                return true;
             }
         }));
 
@@ -121,7 +129,7 @@ public class MainScene extends Scene {
         setupLevel(level);
 
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
-        score.setScore(100000);
+        score.setScore(0);
 
         add(Layer.ui, score);
     }
@@ -135,6 +143,8 @@ public class MainScene extends Scene {
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height/2);
                 addSpike(Metrics.width/6,1f);
                 addSpike(Metrics.width*5/6+ 1f,1f);
+
+
 
                 addCloud(Metrics.width/6, 3f, 1);
                 addFireUnit(Metrics.width/6, Metrics.width - 3f);
@@ -226,11 +236,10 @@ public class MainScene extends Scene {
         super.update(elapsedSeconds);
     }
 
-    @Override
+    /*@Override
     public boolean onTouch(MotionEvent event) {
         float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-        //System.out.println("Click!");
-        // Check for Bouncer touch
+
         for (Bouncer bouncer : bouncers) {
             if (bouncer.getCollisionRect().contains(pts[0], pts[1])) {
                 if (bouncer.onTouch(event)) {
@@ -240,7 +249,6 @@ public class MainScene extends Scene {
             }
         }
 
-        // Check for FireUnit touch
         for (FireUnit fireUnit : fireUnits) {
             if (fireUnit.getCollisionRect().contains(pts[0], pts[1])) {
                 if (fireUnit.onTouch(event)) {
@@ -250,7 +258,6 @@ public class MainScene extends Scene {
             }
         }
 
-        // Check for Cloud touch
         for (Cloud cloud : clouds) {
             if (cloud.getCollisionRect().contains(pts[0], pts[1])) {
                 if (cloud.onTouch(event)) {
@@ -261,11 +268,12 @@ public class MainScene extends Scene {
         }
 
         return false;
-    }
+    }*/
 
     protected int getTouchLayerIndex() {
         return Layer.touch.ordinal();
     }
+
     @Override
     protected void onPause() {
         //Sound.pauseMusic();
@@ -275,5 +283,5 @@ public class MainScene extends Scene {
     protected void onResume() {
         //Sound.resumeMusic();
     }
-
 }
+
