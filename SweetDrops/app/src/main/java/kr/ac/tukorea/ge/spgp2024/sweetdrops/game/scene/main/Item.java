@@ -232,7 +232,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
     private void applyWindForce(Wind wind) {
         // Add the wind's power to the item's velocity, considering wind direction
         Vector2 windDirection = new Vector2(wind.getDx(), wind.getDy()).normalize();
-        Vector2 windForce = windDirection.multiply(wind.getPower() / 4f);
+        Vector2 windForce = windDirection.multiply(wind.getPower()/3f);
         vel = vel.add(windForce);
     }
 

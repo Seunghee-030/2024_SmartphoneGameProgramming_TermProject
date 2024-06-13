@@ -158,12 +158,14 @@ public class MainScene extends Scene {
                 break;
             case 2:
                 addPause(4f,4f,1);
-                addCloud(Metrics.width -2f, Metrics.height - 5f,2);
-                addCloud(Metrics.width / 4, 5f,1);
+                addCloud(Metrics.width /2f, Metrics.height - 4f,4);
+                addCloud(Metrics.width / 2f+2f,Metrics.height - 4f,4);
 
-                addBouncer(Metrics.width / 7, 5f);
-                addBouncer(Metrics.width / 2, Metrics.height - 5f);
+                addBouncer(Metrics.width / 7, 9f);
+                addBouncer(Metrics.width / 2, 9f);
+
                 addBouncer(Metrics.width -1f, 5f);
+
                 addSpike(Metrics.width/6,Metrics.height- 0.2f);
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
                 break;
@@ -179,11 +181,7 @@ public class MainScene extends Scene {
                 break;
             case 4:
                 addPause(4f,4f,1);
-                addCloud(Metrics.width -2f, Metrics.height - 5f,1);
-                addCloud(Metrics.width / 4, 5f,4);
-                addBouncer(Metrics.width / 7, 5f);
-                addBouncer(Metrics.width / 2, Metrics.height - 5f);
-                addBouncer(Metrics.width -1f, 5f);
+
                 addSpike(Metrics.width/6,Metrics.height- 0.2f);
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
                 break;

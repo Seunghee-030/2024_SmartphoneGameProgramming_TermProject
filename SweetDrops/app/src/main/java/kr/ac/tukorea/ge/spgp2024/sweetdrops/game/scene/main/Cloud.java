@@ -16,7 +16,7 @@ public class Cloud extends Sprite {
     private static final float CLOUD_WIDTH = 2f;
     private static final float CLOUD_HEIGHT = CLOUD_WIDTH * 0.7f;
     private static final float TARGET_RADIUS = 0.5f;
-    private static final float FIRE_INTERVAL = 1.3f;
+    private static final float FIRE_INTERVAL = 0.5f;
     private static final float WIND_OFFSET = 0.8f;
 
     protected RectF collisionRect = new RectF();
@@ -87,7 +87,7 @@ public class Cloud extends Sprite {
                 fireWindInDirection(scene, posX, posY + WIND_OFFSET, power, Wind.Direction.DOWN);
                 break;
             case 4:
-                fireWindInDirection(scene, posX, posY - WIND_OFFSET, power, Wind.Direction.UP);
+                fireWindInDirection(scene, posX, posY - WIND_OFFSET, 10, Wind.Direction.UP);
                 break;
         }
     }
