@@ -1,5 +1,6 @@
 package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
@@ -73,6 +74,39 @@ public class Wind extends Sprite implements IBoxCollidable, IRecyclable {
         }
     }
 
+    @Override
+    public void draw(Canvas canvas) {
+        float centerX = dstRect.centerX();
+        float centerY = dstRect.centerY();
+        canvas.save();
+        canvas.rotate(getRotationAngle(), centerX, centerY);
+        super.draw(canvas);
+        canvas.restore();
+    }
+
+    private float getRotationAngle() {
+        switch (direction) {
+            case UP:
+                return 270f;
+            case DOWN:
+                return 90f;
+            case LEFT:
+                return 180f;
+            case RIGHT:
+            default:
+                return 0f;
+        }
+    }
+
+    // Method to get the x-direction component of the wind
+    public float getDx() {
+        return dx;
+    }
+
+    // Method to get the y-direction component of the wind (if applicable)
+    public float getDy() {
+        return 0; // Assuming the wind moves horizontally only
+    }
     @Override
     public RectF getCollisionRect() {
         return dstRect;

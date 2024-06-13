@@ -187,7 +187,6 @@ public class Item extends AnimSprite implements IBoxCollidable {
         dstRect.set(position.x - RADIUS, position.y - RADIUS,
                 position.x + RADIUS, position.y + RADIUS);
     }
-
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -225,8 +224,9 @@ public class Item extends AnimSprite implements IBoxCollidable {
     }
 
     private void applyWindForce(Wind wind) {
-        // Add the wind's power to the item's velocity
-        Vector2 windForce = new Vector2(wind.getPower()/4f, 0);
+        // Add the wind's power to the item's velocity, considering wind direction
+        Vector2 windDirection = new Vector2(wind.getDx(), wind.getDy()).normalize();
+        Vector2 windForce = windDirection.multiply(wind.getPower() / 4f);
         vel = vel.add(windForce);
     }
 
