@@ -31,7 +31,7 @@ public class CollisionChecker implements IGameObject {
                     if (dead) {
                         scene.remove(MainScene.Layer.enemy, enemy);
                         //scene.addScore(enemy.getScore());
-                        scene.addScore(-100);
+                        scene.addScore(-1000);
                     }
                     break;
                 }

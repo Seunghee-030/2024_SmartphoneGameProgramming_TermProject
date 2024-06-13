@@ -13,6 +13,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.scene.RecycleBin;
 import kr.ac.tukorea.ge.spgp2024.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
+import kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.paused.PausedScene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class Item extends AnimSprite implements IBoxCollidable {
 
     private void init(int level, int index) {
         this.level = level;
-        this.life = this.maxLife = (level + 1) * 10;
+        this.life = this.maxLife = (level + 1) * 30;
         setAnimationResource(resIds[level], ANIM_FPS);
         position = new Vector2(Metrics.width / 2, RADIUS); // 화면 가운데 맨 위에서 생성
         vel = new Vector2(0.0f, 0.0f); // 초기 속도
@@ -72,7 +73,8 @@ public class Item extends AnimSprite implements IBoxCollidable {
 
         MainScene scene = (MainScene) Scene.top();
         if (scene != null && !isBroken) {
-
+            if(scene.getScore() <= 0){new PausedScene().push();
+            }
             // 화면 경계와 충돌
             BounceBall(0, Metrics.height, Metrics.width, 0);
 
@@ -81,7 +83,8 @@ public class Item extends AnimSprite implements IBoxCollidable {
                 //System.out.println("충돌! - 아이템, 몬스터");
                 scene.remove(item, this);
                 gameClear = true;
-                scene.addScore(100000);
+                scene.addScore(1000);
+                new PausedScene().push();
             }
             List<Bouncer> bouncers = scene.getBouncers();
             for (Bouncer bouncer : bouncers) {
@@ -144,13 +147,16 @@ public class Item extends AnimSprite implements IBoxCollidable {
         if (isBroken) {
             if (position.y > Metrics.height + RADIUS) {
                 scene.remove(item, this);
-                scene.addScore(-100000);
+                scene.addScore(-1000);
+                new PausedScene().push();
             }
             // 시간을 두고 삭제하지 않고 충돌후 일정 아래로 떨어지면 사라지도록
             if (position.y > brokenPosY + 1.f) {
                 scene.remove(item, this);
-                scene.addScore(-100000);
+                scene.addScore(-1000);
+                new PausedScene().push();
             }
+
         }
 
         updateDstRect(); // 위치 업데이트 후 dstRect 갱신
