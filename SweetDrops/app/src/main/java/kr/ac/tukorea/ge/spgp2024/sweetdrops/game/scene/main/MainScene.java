@@ -59,10 +59,10 @@ public class MainScene extends Scene {
                 add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_2, 0f));
                 break;
             case 3:
-                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_3, 0.3f));
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_3, 0f));
                 break;
             case 4:
-                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_4, 0.5f));
+                add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_4, 0f));
                 break;
             case 5:
                 add(Layer.bg, new VertScrollBackground(R.mipmap.bgr_5, 0f));
