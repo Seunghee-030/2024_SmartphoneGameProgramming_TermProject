@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton fastStartGameButton = binding.getRoot().findViewById(R.id.GameFastStart);
         fastStartGameButton.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, LevelSelectActivity.class));
+            startActivity(new Intent(MainActivity.this, SweetDropsActivity.class));
         });
 
         ImageButton optionButton = binding.getRoot().findViewById(R.id.Option);

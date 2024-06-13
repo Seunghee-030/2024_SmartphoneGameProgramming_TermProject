@@ -20,7 +20,7 @@ public class MainScene extends Scene {
     private final List<Bouncer> bouncers;
     private final List<FireUnit> fireUnits;
     private final List<Cloud> clouds;
-    private final List<Button> buttons;
+    private final List<Pause> pauses;
     private final List<Spike> spikes;
     private final Score score;
     private final int level;
@@ -76,10 +76,10 @@ public class MainScene extends Scene {
         this.bouncers = new ArrayList<>();
         this.fireUnits = new ArrayList<>();
         this.clouds = new ArrayList<>();
-        this.buttons = new ArrayList<>();
+        this.pauses = new ArrayList<>();
         this.spikes = new ArrayList<>();
 
-        add(Layer.touch, new Button(R.mipmap.btn_pause, 1f,1f,1f,1f, new Button.Callback() {
+        /*add(Layer.touch, new Button(R.mipmap.btn_pause, 1f,1f,1f,1f, new Button.Callback() {
             @Override
             public boolean onTouch(Button.Action action) {
                 if (action == Button.Action.pressed) {
@@ -122,7 +122,7 @@ public class MainScene extends Scene {
                 }
                 return false;
             }
-        }));
+        }));*/
 
         add(Layer.player, monster);
 
@@ -144,7 +144,7 @@ public class MainScene extends Scene {
                 addSpike(Metrics.width/6,1f);
                 addSpike(Metrics.width*5/6+ 1f,1f);
 
-
+                addPause(4f,4f,1);
 
                 addCloud(Metrics.width/6, 3f, 1);
                 addFireUnit(Metrics.width/6, Metrics.width - 3f);
@@ -220,6 +220,11 @@ public class MainScene extends Scene {
         clouds.add(cloud);
         add(Layer.obstacle, cloud);
     }
+    public void addPause(float x, float y, int e) {
+        Pause pause = new Pause(x, y, e);
+        pauses.add(pause);
+        add(Layer.touch, pause);
+    }
 
     public void addFireUnit(float x, float y) {
         FireUnit fireUnit = new FireUnit(x, y);
@@ -236,7 +241,7 @@ public class MainScene extends Scene {
         super.update(elapsedSeconds);
     }
 
-    /*@Override
+    @Override
     public boolean onTouch(MotionEvent event) {
         float[] pts = Metrics.fromScreen(event.getX(), event.getY());
 
@@ -266,9 +271,18 @@ public class MainScene extends Scene {
                 }
             }
         }
+         for (Pause pause : pauses) {
+                    if (pause.getCollisionRect().contains(pts[0], pts[1])) {
+                        if (pause.onTouch(event)) {
+                            System.out.println("Pause Click!");
+                            new PausedScene().push();
+                            return true;
+                        }
+                    }
+                }
 
         return false;
-    }*/
+    }
 
     protected int getTouchLayerIndex() {
         return Layer.touch.ordinal();

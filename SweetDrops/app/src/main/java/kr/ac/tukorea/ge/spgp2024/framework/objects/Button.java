@@ -22,7 +22,12 @@ public class Button extends Sprite implements ITouchable {
         this.callback = callback;
     }
     @Override
-    public boolean onTouchEvent(MotionEvent e) {
+    public RectF getCollisionRect() {
+        return dstRect;// 충돌 영역 반환
+    }
+
+    @Override
+    public boolean onTouch(MotionEvent e) {
         float[] pts = Metrics.fromScreen(e.getX(), e.getY());
         if (!dstRect.contains(pts[0], pts[1])) {
             return false;
@@ -35,9 +40,5 @@ public class Button extends Sprite implements ITouchable {
             callback.onTouch(Action.released);
         }
         return true;
-    }
-
-    public RectF getCollisionRect() {
-        return dstRect;
     }
 }

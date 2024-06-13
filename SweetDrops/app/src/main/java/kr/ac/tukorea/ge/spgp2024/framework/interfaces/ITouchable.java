@@ -1,7 +1,9 @@
 package kr.ac.tukorea.ge.spgp2024.framework.interfaces;
 
+import android.graphics.RectF;
 import android.view.MotionEvent;
 
 public interface ITouchable {
-    public boolean onTouchEvent(MotionEvent e);
+    RectF getCollisionRect();
+    public boolean onTouch(MotionEvent event);
 }

@@ -184,7 +184,7 @@ public class Scene {
             if (!(gobj instanceof ITouchable)) {
                 continue;
             }
-            boolean processed = ((ITouchable) gobj).onTouchEvent(event);
+            boolean processed = ((ITouchable) gobj).onTouch(event);
             if (processed) return true;
         }
         return false;
@@ -231,4 +231,7 @@ public class Scene {
         }
     }
 
+    public <E extends Enum<E>> ArrayList<IGameObject> getObjects(E layerEnum) {
+        return layers.get(layerEnum.ordinal());
+    }
 }
