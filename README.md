@@ -29,7 +29,7 @@
   - *Cloud
 
 
-      * <사용한 인터페이스>
+* <사용한 인터페이스>
   - IBoxCollable
   - *ISphereCollable
   - IGameObject
