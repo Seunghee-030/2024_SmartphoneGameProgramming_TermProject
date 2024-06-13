@@ -1,35 +1,43 @@
 2024 1학기 스마트폰 게임 프로그래밍 프로젝트
 
-
-- 게임에 대한 간단한 소개 (이름 변경 : ~Candy Chacher~->> Sweet Drops)
-![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/db7ac2fe-e774-4bf8-8669-93c3fd1f7bbc)
-
-
-https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/faed0a7b-ba05-40af-b1ab-de8fca89a153
+* 게임에 대한 간단한 소개
+* 제목 : Sweet Drops
+   - 자유낙하하는 사탕아이템을 주변 지물을 이용해 튕기거나, 밀거나, 하강 시켜 아래에 있는 몬스터에게 먹여야하는 게임
+   - 쉽게말해서 몬스터에게 사탕이 도달하면 되는 게임이다.
 
 
-
-- 현재까지의 진행 상황 (항목별 진행 정도를 %로 표시할 것)
-![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/c92ef363-b738-4849-9104-7fec0eb3459a)
-
-
-- git commit 을 얼마나 자주 했는지 알 수 있는 자료 (github-insights-commits 포함)
-![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/602a48c6-f216-45e4-88c4-6538eaafac7c)
+* 개발 계획/일정/실제 진행
+![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/9d6c8f11-70da-4732-b2c1-58aa9be7c3a2)
 
 
-* 시연영상
+* 주차별 커밋내역
+![image](https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/b2ce213f-4f91-4c6c-a360-2d9fcc93a604)
 
-https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/4ea5db94-e9db-4be7-ae99-0474cc9e1818
-
-
-* <현재 사용 중인 Game 클래스>
+* 다음 사항을 구체적으로 나열한다.
+  - 사용된 기술
+  - 참고한 것들
+  - 수업내용에서 차용한 것
+  - 직접 개발한 것
+    
+* <사용한 클래스>
 * MainScene
 * Monster
 * Item
-* Candy
 * FireUnit
-* Bouncer
+** Bouncer
 * Bullet
+** Vector2
+** Wind
+** Spike
+** PointItem
+** Cloud
+
+* <사용한 인터페이스>
+* IBoxCollable
+** ISphereCollable
+* IGameObject
+* IRecyclable
+** IChatcherble 
 
 
 * MainScene 클래스
@@ -37,12 +45,10 @@ https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/4ea5
  >또한 터치 입력을 처리하고, 게임의 진행 상태를 업데이트하는 등의 역할.
 
 
-
 * FireUnit 클래스
 >구성: 화면 상하로 이동가능한 장애물 유닛. 비트맵 리소스 사용하여 그림, 애니메이션 표현.
- >상호작용: 터치 입력 받아 목표 위치 설정 및 총알 발사.
+ >상호작용: 터치 입력받아 이동가능, 아이템 공격 역할
   >주요 역할 : 아이템을 방해하는 총알 발사, obstacle Layer에 그려짐
-
 
 
 * Bullet 클래스
@@ -62,24 +68,84 @@ https://github.com/Seunghee-030/Smartphone_Game_Programming/assets/73768560/4ea5
  >상호작용: 다른 객체와의 충돌 감지하여 특정 동작 수행.
   >주요 역할: 몬스터의 움직임, 애니메이션 관리
 
-
 * Bouncer 클래스
->구성: 양옆으로 이동가능한 장애물 유닛, 비트맵 리소스 사용, 충돌시 애니메이션 존재
+>구성: 양옆으로 이동가능한 장애물 유닛
  >상호작용: 터치 입력받아 이동가능, 아이템 튕겨내는 역할, 충돌체크
   >주요 역할: 바운서 움직임
 
+* Spike 클래스
+>구성: 장애물 유닛, 충돌시 아이템 깨지는 애니메이션 존재
+ >상호작용: 아이템 공격 역할
+  >주요 역할: 아이템이 깨지도록한다.
+
+* Vector2 클래스
+>구성: 2차원 벡터 연산을 지원하는 클래스
+ >상호작용: 벡터 연산 메서드 제공
+  >주요 역할: 벡터 연산을 할 수 있게끔 만들었다.
+
+* Wind / Cloud 클래스
+>구성: 바람, 구름을 나타내는 클래스 구름이 방향에 따라 흐르는 바람을 발사한다.
+ >상호작용: 사탕과 닿으면 바람의 방향대로 물체가 이동한다.
+  >주요 역할: 환경 요소의 시각적 표현과 상호작용 구현
+
+* IBoxCollable
+* ISphereCollable
+* IGameObject
+* IRecyclable
+* IChatcherble 
+
 
 * <어려웠던 점>
->인터페이스를 사용하여 객체들 간의 상호작용을 설계하는 것이 어려웠다.
+> 나의 부족한 점을 많이 느꼈다. 중요하지 않은 부분에 힘을 많이 뺀 것같다.
+> 중간에 OnTouch()가 중첩되어 오류가 났었던 때가 어려웠다.
 
-* <현재 구현해야할 내용>
+* 아쉬운 것들을 나열
+  - 하고 싶었지만 못 한 것들
+    - 맵로더는 실제로 그려지는 위치가 이상해서 결국 완성하진 못했다. 
+  - (앱을 스토어에 판다면) 팔기 위해 보충할 것들
+    - 재미가 없는 것 같다. 난이도를 잘 조절할 수 있으면 좋겠다.
+    - 게임 오버될때 너무 금방 종료되어서 별로인 것 같다.
+  - 결국 해결하지 못한 문제/버그
+    - 문제점이 눈에 많이 보인다.
+    
+* 수업에 대한 내용
+  - 이번 수업에서 기대한 것, 얻은 것, 얻지 못한 것
+     - 친근한 폼펙터 + 생소한 툴이 모여 기대 반 걱정 반 이었다. 내가 생각했던 것보다 수업의 깊이가 깊어서 점점 걱정도 되었다.
+     - 하지만 그만큼 두루뭉실하게 알던 개념이나, 전혀 몰랐던 코딩 스킬을 많이 배워간 것 같다.
+     - 많은 양의 내용을 내가 빠르게 흡수하지 못한 것 같다.
+       
+  - 더 좋은 수업이 되기 위해 변화할 점
+     - 중간중간 따라쳐보는 수업이 좀 더 많았으면 좋겠다. 설명으로만 들으며 따라가서 그런지, 개인적으로 놓친 부분이 생각보다 많았던 것 같다.
 
-> *장애물 추가 (바운서/웜홀/밧줄/벽)
-> ~*메인메뉴 버튼추가~, 시작 애니메이션 추가
-> *일시정지, 재개, 다시시작 만들기
-> ~*사탕 물리 수정(원과 사각형의 충돌로 변경)~
-> ~*몬스터 아이템 획득 애니메이션 변경~
-> *스테이지 3개 제작(배치 or 파일 읽어들이기)
+------------------------------------------------------------------------------------------------------------
+
+** 시연영상
+* 발표 및 시연 영상 링크 (최종)
+ - : https://youtu.be/sYwsm9INoyY
+
+ ------------------------------------------------------------------------------------------------------------
+
+* 2차 발표 영상에 대한 링크
+  - : https://youtu.be/1JOXEhG2n-Y?feature=shared
+
+ 
+* 2차 발표 README.md 파일 링크
+  - : Smartphone_Game_Programming/Readmes/README_2.md at master · Seunghee-030/Smartphone_Game_Programming (github.com)
+
+ 
+
+------------------------------------------------------------------------------------------------------------
+
+ 
+* 1차 발표 영상 자료에 대한 링크
+  - : https://youtu.be/Nppi_Ar_YnY
+
+ 
+
+* 1차 README.md 에 대한 링크
+  - : Smartphone_Game_Programming/Readmes/README_1.md at master · Seunghee-030/Smartphone_Game_Programming (github.com)
+
+ 
 
 
 
