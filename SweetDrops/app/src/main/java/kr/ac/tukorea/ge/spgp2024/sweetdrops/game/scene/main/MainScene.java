@@ -3,13 +3,16 @@ package kr.ac.tukorea.ge.spgp2024.sweetdrops.game.scene.main;
 import java.util.ArrayList;
 import java.util.List;
 import android.view.MotionEvent;
+import android.util.Log;
 import kr.ac.tukorea.ge.spgp2024.sweetdrops.R;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.VertScrollBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2024.framework.objects.Button;
 
 public class MainScene extends Scene {
+    private static final String TAG = MainScene.class.getSimpleName();
     private final Monster monster;
     private final List<Bouncer> bouncers;
     private final List<FireUnit> fireUnits;
@@ -35,7 +38,7 @@ public class MainScene extends Scene {
     }
 
     public enum Layer {
-        bg, obstacle, enemy, bullet, player, ui, controller, item, wind, COUNT
+        bg, obstacle, enemy, bullet, player, ui, touch, controller, item, wind, COUNT
     }
 
     public MainScene(int level) {
@@ -72,6 +75,45 @@ public class MainScene extends Scene {
         this.clouds = new ArrayList<>();
         this.spikes = new ArrayList<>();
 
+        add(Layer.touch, new Button(R.mipmap.btn_restart, 1f,0.8f, 1f, 1f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                Log.d(TAG, "Button:"+action);
+                return false;
+            }
+
+            @Override
+            public boolean onTouch() {
+                return true;
+            }
+        }));
+        add(Layer.touch, new Button(R.mipmap.btn_pause, 2f,0.8f, 1f, 1f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                Log.d(TAG, "Button:"+action);
+
+                return false;
+            }
+
+            @Override
+            public boolean onTouch() {
+
+                return true;
+            }
+        }));
+        add(Layer.touch, new Button(R.mipmap.btn_menu, 3f,0.8f, 1.0f, 1.0f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                Log.d(TAG, "Button:"+action);
+                return false;
+            }
+
+            @Override
+            public boolean onTouch() {
+                return true;
+            }
+        }));
+
         add(Layer.player, monster);
 
         setupLevel(level);
@@ -87,18 +129,62 @@ public class MainScene extends Scene {
             case 1:
                 addSpike(Metrics.width/6,Metrics.height- 0.2f);
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
-
+                addSpike(Metrics.width/6,Metrics.height/2);
+                addSpike(Metrics.width*5/6+ 1f,Metrics.height/2);
                 addSpike(Metrics.width/6,1f);
                 addSpike(Metrics.width*5/6+ 1f,1f);
 
                 addCloud(Metrics.width/6, 3f);
+                addFireUnit(Metrics.width/6, Metrics.width - 3f);
 
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
                 addBouncer(Metrics.width / 2, 5f);
+
                 break;
             case 2:
-                addCloud(Metrics.width / 4, Metrics.height - 5f);
-                addBouncer(Metrics.width / 4, Metrics.height - 5f);
+                addCloud(Metrics.width -2f, Metrics.height - 5f);
+                addCloud(Metrics.width / 4, 5f);
+                addBouncer(Metrics.width / 7, 5f);
+                addBouncer(Metrics.width / 2, Metrics.height - 5f);
+                addBouncer(Metrics.width -1f, 5f);
+                addSpike(Metrics.width/6,Metrics.height- 0.2f);
+                addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
+                break;
+            case 3:
+                addCloud(Metrics.width -2f, Metrics.height - 5f);
+                addCloud(Metrics.width / 4, 5f);
+                addBouncer(Metrics.width / 7, 5f);
+                addBouncer(Metrics.width / 2, Metrics.height - 5f);
+                addBouncer(Metrics.width -1f, 5f);
+                addSpike(Metrics.width/6,Metrics.height- 0.2f);
+                addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
+                break;
+            case 4:
+                addCloud(Metrics.width -2f, Metrics.height - 5f);
+                addCloud(Metrics.width / 4, 5f);
+                addBouncer(Metrics.width / 7, 5f);
+                addBouncer(Metrics.width / 2, Metrics.height - 5f);
+                addBouncer(Metrics.width -1f, 5f);
+                addSpike(Metrics.width/6,Metrics.height- 0.2f);
+                addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
+                break;
+            case 5:
+                addCloud(Metrics.width -2f, Metrics.height - 5f);
+                addCloud(Metrics.width / 4, 5f);
+                addBouncer(Metrics.width / 7, 5f);
+                addBouncer(Metrics.width / 2, Metrics.height - 5f);
+                addBouncer(Metrics.width -1f, 5f);
+                addSpike(Metrics.width/6,Metrics.height- 0.2f);
+                addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
+                break;
+            case 6:
+                addCloud(Metrics.width -2f, Metrics.height - 5f);
+                addCloud(Metrics.width / 4, 5f);
+                addBouncer(Metrics.width / 7, 5f);
+                addBouncer(Metrics.width / 2, Metrics.height - 5f);
+                addBouncer(Metrics.width -1f, 5f);
+                addSpike(Metrics.width/6,Metrics.height- 0.2f);
+                addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
                 break;
             // Add cases for additional levels
             // case 3, case 4, etc.
@@ -174,4 +260,18 @@ public class MainScene extends Scene {
 
         return false;
     }
+
+    protected int getTouchLayerIndex() {
+        return Layer.touch.ordinal();
+    }
+    @Override
+    protected void onPause() {
+        //Sound.pauseMusic();
+    }
+
+    @Override
+    protected void onResume() {
+        //Sound.resumeMusic();
+    }
+
 }
