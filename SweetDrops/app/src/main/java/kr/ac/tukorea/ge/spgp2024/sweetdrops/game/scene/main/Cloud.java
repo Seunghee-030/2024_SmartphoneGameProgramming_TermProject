@@ -24,15 +24,16 @@ public class Cloud extends Sprite {
     private float rollTime;
     private static final int imageSizeX = 141;
     private static final int imageSizeY = 110;
+    private int fire_direction = 0;
 
     private static final Rect[] rects = new Rect[] {
-            new Rect(1, 0, imageSizeX+1, imageSizeY),
-            new Rect(2+imageSizeX, 0, imageSizeX*2+2, imageSizeY),
-            new Rect(3+imageSizeX*2, 0, imageSizeX*3+3, imageSizeY),
-            new Rect(3+ imageSizeX*3, 0, imageSizeX*4+3, imageSizeY),
-            new Rect(4+imageSizeX*4, 0, imageSizeX*5+4, imageSizeY),
-            new Rect(5+imageSizeX*5, 0, imageSizeX*6+5, imageSizeY),
-            new Rect(6+imageSizeX*6, 0, imageSizeX*7+6, imageSizeY),
+            new Rect(1, 0, imageSizeX + 1, imageSizeY),
+            new Rect(2 + imageSizeX, 0, imageSizeX * 2 + 2, imageSizeY),
+            new Rect(3 + imageSizeX * 2, 0, imageSizeX * 3 + 3, imageSizeY),
+            new Rect(3 + imageSizeX * 3, 0, imageSizeX * 4 + 3, imageSizeY),
+            new Rect(4 + imageSizeX * 4, 0, imageSizeX * 5 + 4, imageSizeY),
+            new Rect(5 + imageSizeX * 5, 0, imageSizeX * 6 + 5, imageSizeY),
+            new Rect(6 + imageSizeX * 6, 0, imageSizeX * 7 + 6, imageSizeY),
     };
 
     private float targetX;
@@ -41,10 +42,11 @@ public class Cloud extends Sprite {
     private Bitmap targetBmp;
     private float fireCoolTime = FIRE_INTERVAL;
 
-    public Cloud(float x, float y) {
+    public Cloud(float x, float y, int e) {
         super(R.mipmap.cloud_anim);
-        setPosition(x,y, CLOUD_WIDTH, CLOUD_HEIGHT);
+        setPosition(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
         setTargetY(posY);
+        fire_direction= e;
         targetBmp = BitmapPool.get(R.mipmap.fighter_target);
         srcRect = rects[0];
     }
@@ -53,14 +55,14 @@ public class Cloud extends Sprite {
     public void update(float elapsedSeconds) {
         super.update(elapsedSeconds);
         fireWind(elapsedSeconds * 0.3f);
-        updateRoll(elapsedSeconds/2);
+        updateRoll(elapsedSeconds / 2);
     }
 
     private void updateRoll(float elapsedSeconds) {
         rollTime += elapsedSeconds * 0.5f;
         if (rollTime > MAX_ROLL_TIME)
             rollTime -= MAX_ROLL_TIME;
-        int rollIndex = (int)(rollTime / MAX_ROLL_TIME * 7);
+        int rollIndex = (int) (rollTime / MAX_ROLL_TIME * 7);
         srcRect = rects[rollIndex];
     }
 
@@ -72,7 +74,26 @@ public class Cloud extends Sprite {
 
         fireCoolTime = FIRE_INTERVAL;
         int power = 3;
-        Wind wind = Wind.get(posX + WIND_OFFSET, posY, power);
+
+        // Fire wind in all four directions
+        switch(fire_direction){
+            case 1:
+                fireWindInDirection(scene, posX + WIND_OFFSET, posY, power, Wind.Direction.RIGHT);
+                break;
+            case 2:
+                fireWindInDirection(scene, posX - WIND_OFFSET, posY, power, Wind.Direction.LEFT);
+                break;
+            case 3:
+                fireWindInDirection(scene, posX, posY + WIND_OFFSET, power, Wind.Direction.DOWN);
+                break;
+            case 4:
+                fireWindInDirection(scene, posX, posY - WIND_OFFSET, power, Wind.Direction.UP);
+                break;
+        }
+    }
+
+    private void fireWindInDirection(MainScene scene, float x, float y, int power, Wind.Direction direction) {
+        Wind wind = Wind.get(x, y, power, direction);
         scene.add(MainScene.Layer.wind, wind);
     }
 

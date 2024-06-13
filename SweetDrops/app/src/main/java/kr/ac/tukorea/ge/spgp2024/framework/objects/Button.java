@@ -7,6 +7,11 @@ import kr.ac.tukorea.ge.spgp2024.framework.interfaces.ITouchable;
 import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class Button extends Sprite implements ITouchable {
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        return false;
+    }
+
     public enum Action {
         pressed, released,
     }
@@ -22,8 +27,9 @@ public class Button extends Sprite implements ITouchable {
         super(bitmapResId, cx, cy, width, height);
         this.callback = callback;
     }
-    @Override
-    public boolean onTouchEvent(MotionEvent e) {
+
+    /*Override
+        public boolean onTouchEvent(MotionEvent e) {
         float[] pts = Metrics.fromScreen(e.getX(), e.getY());
         if (!dstRect.contains(pts[0], pts[1])) {
             return false;
@@ -36,5 +42,14 @@ public class Button extends Sprite implements ITouchable {
             callback.onTouch(Action.released);
         }
         return true;
+    }*/
+    public boolean onTouch(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                float[] pts = Metrics.fromScreen(event.getX(), event.getY());
+                float clickedY = pts[1];
+        }
+        return false;
     }
 }

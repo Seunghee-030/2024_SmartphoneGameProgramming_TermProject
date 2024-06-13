@@ -84,6 +84,7 @@ public class MainScene extends Scene {
 
             @Override
             public boolean onTouch() {
+                System.out.println("onTouch_restart");
                 return true;
             }
         }));
@@ -97,7 +98,7 @@ public class MainScene extends Scene {
 
             @Override
             public boolean onTouch() {
-
+                System.out.println("onTouch_pause");
                 return true;
             }
         }));
@@ -110,6 +111,7 @@ public class MainScene extends Scene {
 
             @Override
             public boolean onTouch() {
+                System.out.println("onTouch_menu");
                 return true;
             }
         }));
@@ -134,7 +136,7 @@ public class MainScene extends Scene {
                 addSpike(Metrics.width/6,1f);
                 addSpike(Metrics.width*5/6+ 1f,1f);
 
-                addCloud(Metrics.width/6, 3f);
+                addCloud(Metrics.width/6, 3f, 1);
                 addFireUnit(Metrics.width/6, Metrics.width - 3f);
 
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
@@ -142,8 +144,8 @@ public class MainScene extends Scene {
 
                 break;
             case 2:
-                addCloud(Metrics.width -2f, Metrics.height - 5f);
-                addCloud(Metrics.width / 4, 5f);
+                addCloud(Metrics.width -2f, Metrics.height - 5f,2);
+                addCloud(Metrics.width / 4, 5f,1);
                 addBouncer(Metrics.width / 7, 5f);
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
                 addBouncer(Metrics.width -1f, 5f);
@@ -151,8 +153,8 @@ public class MainScene extends Scene {
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
                 break;
             case 3:
-                addCloud(Metrics.width -2f, Metrics.height - 5f);
-                addCloud(Metrics.width / 4, 5f);
+                addCloud(Metrics.width -2f, Metrics.height - 5f,2);
+                addCloud(Metrics.width / 4, 5f,3);
                 addBouncer(Metrics.width / 7, 5f);
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
                 addBouncer(Metrics.width -1f, 5f);
@@ -160,8 +162,8 @@ public class MainScene extends Scene {
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
                 break;
             case 4:
-                addCloud(Metrics.width -2f, Metrics.height - 5f);
-                addCloud(Metrics.width / 4, 5f);
+                addCloud(Metrics.width -2f, Metrics.height - 5f,1);
+                addCloud(Metrics.width / 4, 5f,4);
                 addBouncer(Metrics.width / 7, 5f);
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
                 addBouncer(Metrics.width -1f, 5f);
@@ -169,8 +171,8 @@ public class MainScene extends Scene {
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
                 break;
             case 5:
-                addCloud(Metrics.width -2f, Metrics.height - 5f);
-                addCloud(Metrics.width / 4, 5f);
+                addCloud(Metrics.width -2f, Metrics.height - 5f,3);
+                addCloud(Metrics.width / 4, 5f,4);
                 addBouncer(Metrics.width / 7, 5f);
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
                 addBouncer(Metrics.width -1f, 5f);
@@ -178,8 +180,8 @@ public class MainScene extends Scene {
                 addSpike(Metrics.width*5/6+ 1f,Metrics.height- 0.2f);
                 break;
             case 6:
-                addCloud(Metrics.width -2f, Metrics.height - 5f);
-                addCloud(Metrics.width / 4, 5f);
+                addCloud(Metrics.width -2f, Metrics.height - 5f,2);
+                addCloud(Metrics.width / 4, 5f,4);
                 addBouncer(Metrics.width / 7, 5f);
                 addBouncer(Metrics.width / 2, Metrics.height - 5f);
                 addBouncer(Metrics.width -1f, 5f);
@@ -203,8 +205,8 @@ public class MainScene extends Scene {
         add(Layer.obstacle, spike);
     }
 
-    public void addCloud(float x, float y) {
-        Cloud cloud = new Cloud(x, y);
+    public void addCloud(float x, float y, int e) {
+        Cloud cloud = new Cloud(x, y, e);
         clouds.add(cloud);
         add(Layer.obstacle, cloud);
     }
